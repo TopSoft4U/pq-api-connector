@@ -11,6 +11,9 @@ class GetProductCategoryTreeItem
     public int $order;
     public int $countPublished;
     public bool $visible;
+    /**
+     * @var \TopSoft4U\Connector\Methods\GetProductCategoryTree\GetProductCategoryTreeItem[]
+     */
     public array $children = [];
 
     public static function FromData(array $data): self

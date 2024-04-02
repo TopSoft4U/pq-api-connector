@@ -39,11 +39,11 @@ class GetProductCategoriesRequest extends GetMethod
         return $result;
     }
 
-    public function formatData($data): GetProductCategoryTreeResponse
+    public function formatData($data): GetProductCategoriesResponse
     {
-        $result = new GetProductCategoryTreeResponse();
+        $result = new GetProductCategoriesResponse();
         foreach ($data as $row) {
-            $result->items[] = GetProductCategoryTreeItem::FromData($row);
+            $result->items[] = GetProductCategoryItem::FromData($row);
         }
 
         return $result;
