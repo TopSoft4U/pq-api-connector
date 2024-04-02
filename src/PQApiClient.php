@@ -41,6 +41,16 @@ class PQApiClient
         $queryParams['key'] = $this->apiKey;
         if ($this->lang) $queryParams['lang'] = (string)$this->lang;
 
+        foreach ($queryParams as $key => $value) {
+            if ($value === null) {
+                unset($queryParams[$key]);
+                continue;
+            }
+
+            if (is_object($value) && method_exists($value, "__toString"))
+                $queryParams[$key] = (string)$value;
+        }
+
         $methodType = $method->getMethodType();
         $bodyData = $method->getBodyData();
 

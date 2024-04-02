@@ -13,14 +13,14 @@ class GetProductVariantSubItem
 
     public static function FromData(array $data): self
     {
-        $result = new self();
-        $result->attributeValue = $data["attributevalue"];
-        $result->productId = $data["productid"];
-        $result->inStock = $data["instock"];
-        $result->thumbnail = $data["thumbnail"];
-        $result->fullMatch = $data["fullmatch"];
-        $result->slug = $data["slug"] ?? null;
+        $item = new self();
+        $item->attributeValue = $data["attributevalue"];
+        $item->productId = $data["productid"];
+        $item->inStock = $data["instock"];
+        $item->thumbnail = $data["thumbnail"];
+        $item->fullMatch = $data["fullmatch"];
+        $item->slug = $data["slug"] ?? null;
 
-        return $result;
+        return $item;
     }
 }

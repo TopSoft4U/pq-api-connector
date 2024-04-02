@@ -12,16 +12,16 @@ class GetProductVariantItem
 
     public static function FromData($data): self
     {
-        $result = new self();
-        $result->groupName = $data["groupname"];
-        $result->attributeId = $data["attributeid"];
-        $result->unit = $data["unit"];
-        $result->type = $data["type"];
+        $item = new self();
+        $item->groupName = $data["groupname"];
+        $item->attributeId = $data["attributeid"];
+        $item->unit = $data["unit"];
+        $item->type = $data["type"];
 
         foreach ($data["subitems"] as $row) {
-            $result->subItems[] = GetProductVariantSubItem::FromData($row);
+            $item->subItems[] = GetProductVariantSubItem::FromData($row);
         }
 
-        return $result;
+        return $item;
     }
 }

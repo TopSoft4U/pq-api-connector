@@ -12,13 +12,13 @@ class GetProductsQtyItem
 
     public static function FromData(array $row): self
     {
-        $result = new self();
-        $result->id = $row["id"];
-        $result->userPrice = $row["userprice"];
-        $result->userPriceGross = $row["userpricegross"];
-        $result->vatRate = $row["vatrate"];
-        $result->qty = $row["qty"];
+        $item = new self();
+        $item->id = $row["id"];
+        $item->userPrice = $row["userprice"];
+        $item->userPriceGross = $row["userpricegross"];
+        $item->vatRate = $row["vatrate"];
+        $item->qty = $row["qty"];
 
-        return $result;
+        return $item;
     }
 }

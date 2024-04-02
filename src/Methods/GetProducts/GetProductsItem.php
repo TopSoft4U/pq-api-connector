@@ -76,39 +76,39 @@ class GetProductsItem
 
     public static function FromData(array $row): self
     {
-        $result = new self();
-        $result->id = $row["id"];
-        $result->modified = $row["modified"];
-        $result->name = $row["name"];
-        $result->pid = $row["pid"];
-        $result->ean = $row["ean"];
-        $result->status = $row["status"];
-        $result->allowPriceOffer = $row["allowpriceoffer"];
-        $result->askForPrice = $row["askforprice"];
-        $result->fkOutletAncestor = $row["fkoutletancestor"];
-        $result->defect = $row["defect"];
-        $result->incomingDays = $row["incomingdays"];
-        $result->description = $row["description"];
-        $result->userPrice = $row["userprice"];
-        $result->userPriceGross = $row["userpricegross"];
-        $result->vatRate = $row["vatrate"];
-        $result->supplyQty = $row["supplyqty"];
-        $result->qty = $row["qty"];
-        $result->eol = $row["eol"];
-        $result->forAdults = $row["foradults"];
-        $result->sizeX = $row["size_x"];
-        $result->sizeY = $row["size_y"];
-        $result->sizeZ = $row["size_z"];
-        $result->leadTime = $row["leadtime"];
-        $result->productCondition = $row["productconditionid"] ? new DictionaryValue($row["productconditionid"], $row["productconditionname"]) : null;
-        $result->productUnit = $row["productunitid"] ? new DictionaryValue($row["productunitid"], $row["productunitname"]) : null;
-        $result->productGroup = $row["productgroupid"] ? new DictionaryValue($row["productgroupid"], $row["productgroupname"]) : null;
-        $result->weight = $row["weight"];
-        $result->weightGross = $row["weightgross"];
-        $result->cnCode = $row["cncode"];
-        $result->categories = $row["categories"];
-        $result->images = $row["images"];
+        $item = new self();
+        $item->id = $row["id"];
+        $item->modified = $row["modified"];
+        $item->name = $row["name"];
+        $item->pid = $row["pid"];
+        $item->ean = $row["ean"];
+        $item->status = $row["status"];
+        $item->allowPriceOffer = $row["allowpriceoffer"];
+        $item->askForPrice = $row["askforprice"];
+        $item->fkOutletAncestor = $row["fkoutletancestor"];
+        $item->defect = $row["defect"];
+        $item->incomingDays = $row["incomingdays"];
+        $item->description = $row["description"];
+        $item->userPrice = $row["userprice"];
+        $item->userPriceGross = $row["userpricegross"];
+        $item->vatRate = $row["vatrate"];
+        $item->supplyQty = $row["supplyqty"];
+        $item->qty = $row["qty"];
+        $item->eol = $row["eol"];
+        $item->forAdults = $row["foradults"];
+        $item->sizeX = $row["size_x"];
+        $item->sizeY = $row["size_y"];
+        $item->sizeZ = $row["size_z"];
+        $item->leadTime = $row["leadtime"];
+        $item->productCondition = $row["productconditionid"] ? new DictionaryValue($row["productconditionid"], $row["productconditionname"]) : null;
+        $item->productUnit = $row["productunitid"] ? new DictionaryValue($row["productunitid"], $row["productunitname"]) : null;
+        $item->productGroup = $row["productgroupid"] ? new DictionaryValue($row["productgroupid"], $row["productgroupname"]) : null;
+        $item->weight = $row["weight"];
+        $item->weightGross = $row["weightgross"];
+        $item->cnCode = $row["cncode"];
+        $item->categories = $row["categories"];
+        $item->images = $row["images"];
 
-        return $result;
+        return $item;
     }
 }
