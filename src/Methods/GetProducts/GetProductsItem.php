@@ -7,7 +7,7 @@ use TopSoft4U\Connector\Utils\DictionaryValue;
 class GetProductsItem
 {
     public int $id;
-    public string $modified;
+    public ?string $modified;
     public string $name;
     public ?string $pid = null;
     public ?string $ean = null;

@@ -2,7 +2,6 @@
 
 namespace TopSoft4U\Connector\Methods\GetProducts;
 
-use TopSoft4U\Connector\Abstracts\BaseMethod;
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Currency;
 use TopSoft4U\Connector\Utils\IdList;

@@ -28,7 +28,6 @@ class GetProductVariantsRequest extends GetMethod
         return [
             "id"         => $this->id,
             "categoryid" => $this->categoryId,
-            "XDEBUG_SESSION_START" => 1,
         ];
     }
 
