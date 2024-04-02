@@ -1,0 +1,36 @@
+{
+  "name": "topsoft4u/pq-api-connector",
+  "version": "1.0.0",
+  "homepage": "https://topsoft4u.com",
+  "keywords": [
+    "proqos",
+    "api",
+    "connector"
+  ],
+  "description": "Allows you to connect to API instances running on ProQoS platform.",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "TopSoft4U\\Connector\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TopSoft4U\\Connector\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Łukasz Kolasa",
+      "homepage": "https://topsoft4u.com",
+      "email": "lukasz.kolasa@topsoft4u.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  }
+}
