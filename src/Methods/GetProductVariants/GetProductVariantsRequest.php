@@ -7,8 +7,8 @@ use TopSoft4U\Connector\Abstracts\GetMethod;
 class GetProductVariantsRequest extends GetMethod
 {
     //region Query params
-    public int $id;
-    public int $categoryId;
+    private int $id;
+    private int $categoryId;
 
     //endregion
 
@@ -27,7 +27,8 @@ class GetProductVariantsRequest extends GetMethod
     {
         return [
             "id"         => $this->id,
-            "categoryId" => $this->categoryId
+            "categoryid" => $this->categoryId,
+            "XDEBUG_SESSION_START" => 1,
         ];
     }
 

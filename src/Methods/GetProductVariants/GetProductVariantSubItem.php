@@ -7,6 +7,9 @@ class GetProductVariantSubItem
     public string $attributeValue;
     public int $productId;
     public bool $inStock;
+    public ?string $thumbnail;
+    public bool $fullMatch;
+    public ?string $slug = null;
 
     public static function FromData(array $data): self
     {
@@ -14,6 +17,9 @@ class GetProductVariantSubItem
         $result->attributeValue = $data["attributevalue"];
         $result->productId = $data["productid"];
         $result->inStock = $data["instock"];
+        $result->thumbnail = $data["thumbnail"];
+        $result->fullMatch = $data["fullmatch"];
+        $result->slug = $data["slug"] ?? null;
 
         return $result;
     }
