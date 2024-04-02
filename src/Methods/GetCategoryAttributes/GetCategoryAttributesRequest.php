@@ -3,6 +3,7 @@
 namespace TopSoft4U\Connector\Methods\GetCategoryAttributes;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Utils\Date;
 use TopSoft4U\Connector\Utils\IdList;
 
 class GetCategoryAttributesRequest extends GetMethod
@@ -11,7 +12,7 @@ class GetCategoryAttributesRequest extends GetMethod
     public ?IdList $id = null;
     public ?IdList $categoryId = null;
     public ?string $name = null;
-    public ?string $modified = null;
+    public ?Date $modified = null;
     public ?GetCategoryAttributeType $type = null;
 
     //endregion
@@ -34,14 +35,8 @@ class GetCategoryAttributesRequest extends GetMethod
         if ($this->name !== null)
             $result['name'] = $this->name;
 
-        if ($this->modified !== null) {
-            // Validate format yyyy-MM-dd
-            $date = \DateTime::createFromFormat('Y-m-d', $this->modified);
-            if ($date === false)
-                throw new \Exception("Invalid date format - expected yyyy-MM-dd");
-
+        if ($this->modified !== null)
             $result['modified'] = $this->modified;
-        }
 
         if ($this->type !== null)
             $result['type'] = $this->type;

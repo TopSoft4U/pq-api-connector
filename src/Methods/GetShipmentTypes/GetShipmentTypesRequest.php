@@ -4,6 +4,7 @@ namespace TopSoft4U\Connector\Methods\GetShipmentTypes;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\CountryIso;
+use TopSoft4U\Connector\Utils\Date;
 use TopSoft4U\Connector\Utils\IdList;
 
 class GetShipmentTypesRequest extends GetMethod
@@ -11,7 +12,7 @@ class GetShipmentTypesRequest extends GetMethod
     public CountryIso $country;
 
     public ?IdList $id = null;
-    public ?string $modified = null;
+    public ?Date $modified = null;
     public ?string $name = null;
     public ?float $weight = null;
 
@@ -34,14 +35,8 @@ class GetShipmentTypesRequest extends GetMethod
         if ($this->id !== null)
             $result["id"] = $this->id;
 
-        if ($this->modified !== null) {
-            // Validate format yyyy-MM-dd
-            $date = \DateTime::createFromFormat('Y-m-d', $this->modified);
-            if ($date === false)
-                throw new \Exception("Invalid date format - expected yyyy-MM-dd");
-
+        if ($this->modified !== null)
             $result['modified'] = $this->modified;
-        }
 
         if ($this->name !== null)
             $result["name"] = $this->name;

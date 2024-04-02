@@ -4,6 +4,7 @@ namespace TopSoft4U\Connector\Methods\GetProducts;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Currency;
+use TopSoft4U\Connector\Utils\Date;
 use TopSoft4U\Connector\Utils\IdList;
 
 class GetProductsRequest extends GetMethod
@@ -13,7 +14,7 @@ class GetProductsRequest extends GetMethod
     public ?string $name = null;
     public ?string $pid = null;
     public ?IdList $productCategoryId = null;
-    public ?string $modified = null;
+    public ?Date $modified = null;
     public ?Currency $currency = null;
     public ?string $fit1 = null;
     public ?string $fit2 = null;
@@ -44,14 +45,8 @@ class GetProductsRequest extends GetMethod
         if ($this->productCategoryId !== null)
             $result['productcategoryid'] = $this->productCategoryId;
 
-        if ($this->modified !== null) {
-            // Validate format yyyy-MM-dd
-            $date = \DateTime::createFromFormat('Y-m-d', $this->modified);
-            if ($date === false)
-                throw new \Exception("Invalid date format - expected yyyy-MM-dd");
-
+        if ($this->modified !== null)
             $result['modified'] = $this->modified;
-        }
 
         if ($this->currency !== null)
             $result['currency'] = $this->currency;
