@@ -40,7 +40,7 @@ class GetSalesRequest extends GetMethod
         return $result;
     }
 
-    public function formatData($data)
+    public function formatData($data): GetSalesResponse
     {
         $result = new GetSalesResponse();
         foreach ($data as $row) {

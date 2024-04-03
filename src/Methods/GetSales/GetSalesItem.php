@@ -2,6 +2,10 @@
 
 namespace TopSoft4U\Connector\Methods\GetSales;
 
+use TopSoft4U\Connector\Methods\GetSaleDocuments\GetSaleDocumentsRequest;
+use TopSoft4U\Connector\Methods\GetSalePositions\GetSalePositionsRequest;
+use TopSoft4U\Connector\PQApiClient;
+
 class GetSalesItem
 {
     public int $id;
@@ -38,8 +42,35 @@ class GetSalesItem
     public bool $isPaid;
     public bool $isPacked;
     public bool $isShipped;
-    public int $productCount;
     public array $mergedIds = [];
+
+    /**
+     * @param PQApiClient $client
+     *
+     * @return \TopSoft4U\Connector\Methods\GetSalePositions\GetSalePositionsItem[]
+     * @throws \TopSoft4U\Connector\PQApiException
+     */
+    public function getPositions(PQApiClient $client): array
+    {
+        $request = new GetSalePositionsRequest($this->id);
+        $response = $client->sendRequest($request);
+        $data = $request->formatData($response);
+        return $data->items;
+    }
+
+    /**
+     * @param PQApiClient $client
+     *
+     * @return \TopSoft4U\Connector\Methods\GetSaleDocuments\GetSaleDocumentsItem[]
+     * @throws \TopSoft4U\Connector\PQApiException
+     */
+    public function getDocuments(PQApiClient $client): array
+    {
+        $request = new GetSaleDocumentsRequest($this->id);
+        $response = $client->sendRequest($request);
+        $data = $request->formatData($response);
+        return $data->items;
+    }
 
     public static function FromData(array $data): self
     {
@@ -67,7 +98,6 @@ class GetSalesItem
         $item->isPaid = $data['ispaid'];
         $item->isPacked = $data['ispacked'];
         $item->isShipped = $data['isshipped'];
-        $item->productCount = $data['productcount'];
 
         $item->mergedIds = array_filter(array_map('intval', explode(',', $data['mergedids'])));
 
