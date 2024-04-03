@@ -25,11 +25,11 @@ class GetSalePositionsRequest extends GetMethod
         ];
     }
 
-    public function formatData($data)
+    public function formatData($data): GetSalePositionsResponse
     {
-        $result = new GetSaleDocumentsResponse();
+        $result = new GetSalePositionsResponse();
         foreach ($data as $row) {
-            $result->items[] = GetSaleDocumentsItem::FromData($row);
+            $result->items[] = GetSalePositionsItem::FromData($row);
         }
 
         return $result;

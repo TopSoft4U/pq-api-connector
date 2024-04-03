@@ -37,7 +37,7 @@ class GetSaleDocumentsRequest extends GetMethod
         return $result;
     }
 
-    public function formatData($data)
+    public function formatData($data): GetSaleDocumentsResponse
     {
         $result = new GetSaleDocumentsResponse();
         foreach ($data as $row) {
