@@ -113,45 +113,14 @@ class PQApiClient
      */
     public function sendRequest(BaseMethod $method)
     {
-        $url = $this->baseUrl . $method->getUrl() . ".json";
+        $response = $this->executeMethod($method);
+        $statusCode = $response["statusCode"];
 
-        $queryParams = $method->getQueryParams();
-        $queryParams['key'] = $this->apiKey;
-        if ($this->lang) $queryParams['lang'] = (string)$this->lang;
+        if ($statusCode === 204)
+            return null;
 
-        foreach ($queryParams as $key => $value) {
-            if ($value === null) {
-                unset($queryParams[$key]);
-                continue;
-            }
-
-            if (is_object($value) && method_exists($value, "__toString"))
-                $queryParams[$key] = (string)$value;
-        }
-
-        $methodType = $method->getMethodType();
-        $bodyData = $method->getBodyData();
-
-        $qParamsString = http_build_query($queryParams);
-        if ($qParamsString)
-            $url .= "?" . $qParamsString;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $methodType);
-
-        $methodTypesWithBody = ["POST", "PUT", "PATCH"];
-        if (in_array($methodType, $methodTypesWithBody)) {
-            $formData = http_build_query($bodyData);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $formData);
-        }
-
-        $response = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-
-        $data = json_decode($response, true);
+        if ((string) $this->outputFormat !== (string) OutputType::JSON())
+            throw new \Exception("Unsupported output format. Only JSON is supported. If you want to use another format, use executeMethod instead and handle the response yourself.");
 
         $data = json_decode($response["output"], true);
         if ($statusCode >= 400) {
