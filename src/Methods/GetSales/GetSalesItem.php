@@ -3,6 +3,7 @@
 namespace TopSoft4U\Connector\Methods\GetSales;
 
 use TopSoft4U\Connector\Methods\GetSaleDocuments\GetSaleDocumentsRequest;
+use TopSoft4U\Connector\Methods\GetSaleECOD\GetSaleECODRequest;
 use TopSoft4U\Connector\Methods\GetSalePositions\GetSalePositionsRequest;
 use TopSoft4U\Connector\PQApiClient;
 
@@ -70,6 +71,14 @@ class GetSalesItem
         $response = $client->sendRequest($request);
         $data = $request->formatData($response);
         return $data->items;
+    }
+
+    public function getECOD(PQApiClient $client): ?string
+    {
+        $request = new GetSaleECODRequest($this->id);
+        $response = $client->sendRequest($request);
+        $data = $request->formatData($response);
+        return $data->content;
     }
 
     public static function FromData(array $data): self
