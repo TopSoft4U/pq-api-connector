@@ -4,13 +4,12 @@ namespace TopSoft4U\Connector\Methods\GetSaleDocuments;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Date;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetSaleDocumentsRequest extends GetMethod
 {
     private int $id;
     public ?Date $date = null;
-    public ?IdList $type = null;
+    public ?array $type = null;
 
     public function __construct(int $id)
     {

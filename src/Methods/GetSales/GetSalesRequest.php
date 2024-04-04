@@ -4,15 +4,14 @@ namespace TopSoft4U\Connector\Methods\GetSales;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Date;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetSalesRequest extends GetMethod
 {
-    public ?IdList $id = null;
+    public ?array $id = null;
     public ?string $name = null;
     public ?Date $date = null;
     public ?Date $modified = null;
-    public ?IdList $type = null;
+    public ?array $type = null;
 
     public function getUrl(): string
     {

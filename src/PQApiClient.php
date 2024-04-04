@@ -4,6 +4,7 @@ namespace TopSoft4U\Connector;
 
 use InvalidArgumentException;
 use TopSoft4U\Connector\Abstracts\BaseMethod;
+use TopSoft4U\Connector\Utils\IdList;
 use TopSoft4U\Connector\Utils\Language;
 use TopSoft4U\Connector\Utils\OutputType;
 
@@ -48,6 +49,9 @@ class PQApiClient
                 unset($queryParams[$key]);
                 continue;
             }
+
+            if (is_array($value))
+                $value = new IdList($value);
 
             if (is_object($value) && method_exists($value, "__toString"))
                 $queryParams[$key] = (string)$value;
@@ -119,7 +123,7 @@ class PQApiClient
         if ($statusCode === 204)
             return null;
 
-        if ((string) $this->outputFormat !== (string) OutputType::JSON())
+        if ((string)$this->outputFormat !== (string)OutputType::JSON())
             throw new \Exception("Unsupported output format. Only JSON is supported. If you want to use another format, use executeMethod instead and handle the response yourself.");
 
         $data = json_decode($response["output"], true);

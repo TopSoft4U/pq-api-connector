@@ -4,17 +4,15 @@ namespace TopSoft4U\Connector\Methods\GetCategoryAttributes;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Date;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetCategoryAttributesRequest extends GetMethod
 {
     //region Query params
-    public ?IdList $id = null;
-    public ?IdList $categoryId = null;
+    public ?array $id = null;
+    public ?array $categoryId = null;
     public ?string $name = null;
     public ?Date $modified = null;
     public ?GetCategoryAttributeType $type = null;
-
     //endregion
 
     public function getUrl(): string

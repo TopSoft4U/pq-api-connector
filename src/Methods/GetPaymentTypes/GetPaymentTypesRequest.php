@@ -5,16 +5,15 @@ namespace TopSoft4U\Connector\Methods\GetPaymentTypes;
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\CountryIso;
 use TopSoft4U\Connector\Utils\Date;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetPaymentTypesRequest extends GetMethod
 {
     public CountryIso $country;
 
-    public ?IdList $id = null;
+    public ?array $id = null;
     public ?Date $modified = null;
     public ?string $name = null;
-    public ?IdList $fkShipmentType = null;
+    public ?array $fkShipmentType = null;
 
     public function __construct(CountryIso $country)
     {

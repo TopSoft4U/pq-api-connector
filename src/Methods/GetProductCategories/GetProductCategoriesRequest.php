@@ -4,12 +4,11 @@ namespace TopSoft4U\Connector\Methods\GetProductCategories;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Date;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetProductCategoriesRequest extends GetMethod
 {
     //region Query params
-    public ?IdList $id = null;
+    public ?array $id = null;
     public ?int $fkParent = null;
     public ?Date $modified = null;
     public ?bool $adult = null;

@@ -5,15 +5,14 @@ namespace TopSoft4U\Connector\Methods\GetProductsQty;
 use TopSoft4U\Connector\Abstracts\GetMethod;
 use TopSoft4U\Connector\Utils\Currency;
 use TopSoft4U\Connector\Utils\Date;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetProductsQtyRequest extends GetMethod
 {
     //region Query params
-    public ?IdList $id = null;
+    public ?array $id = null;
     public ?string $name = null;
     public ?string $pid = null;
-    public ?IdList $productCategoryId = null;
+    public ?array $productCategoryId = null;
     public ?Date $modified = null;
     public ?Currency $currency = null;
     //endregion

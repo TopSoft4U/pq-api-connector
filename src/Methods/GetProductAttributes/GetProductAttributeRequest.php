@@ -3,12 +3,11 @@
 namespace TopSoft4U\Connector\Methods\GetProductAttributes;
 
 use TopSoft4U\Connector\Abstracts\GetMethod;
-use TopSoft4U\Connector\Utils\IdList;
 
 class GetProductAttributeRequest extends GetMethod
 {
     //region Query params
-    public ?IdList $id = null;
+    public ?array $id = null;
     public ?int $categoryId = null;
 
     //endregion
