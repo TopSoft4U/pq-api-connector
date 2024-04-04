@@ -2,6 +2,8 @@
 
 namespace TopSoft4U\Connector\Methods\GetSales;
 
+use TopSoft4U\Connector\Methods\GetSale\GetSaleRequest;
+use TopSoft4U\Connector\Methods\GetSale\GetSaleResponse;
 use TopSoft4U\Connector\Methods\GetSaleDocuments\GetSaleDocumentsRequest;
 use TopSoft4U\Connector\Methods\GetSaleECOD\GetSaleECODRequest;
 use TopSoft4U\Connector\Methods\GetSalePositions\GetSalePositionsRequest;
@@ -79,6 +81,14 @@ class GetSalesItem
         $response = $client->sendRequest($request);
         $data = $request->formatData($response);
         return $data->content;
+    }
+
+    public function getDetails(PQApiClient $client): GetSaleResponse
+    {
+        $request = new GetSaleRequest($this->id);
+        $response = $client->sendRequest($request);
+        $data = $request->formatData($response);
+        return $data;
     }
 
     public static function FromData(array $data): self
