@@ -2,22 +2,16 @@
 
 namespace TopSoft4U\Connector\Utils;
 
-class Language
+class Language extends SimpleToString
 {
-    public string $value;
 
-    public function __construct(string $locale)
+    public function __construct(string $value)
     {
         // Must be 3 letters, can be uppercase or lowercase
-        if (!preg_match('/^[A-Za-z]{2}$/', $locale))
+        if (!preg_match('/^[A-Za-z]{2}$/', $value))
             throw new \Exception("Invalid locale format - expected 2 letters");
 
-        $this->value = $locale;
-    }
-
-    public function __toString()
-    {
-        return $this->value;
+        parent::__construct($value);
     }
 
     //region Helpers methods for predefined languages

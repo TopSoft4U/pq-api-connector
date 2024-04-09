@@ -14,6 +14,7 @@ class PQApiClient
     private string $baseUrl;
     private string $apiKey;
     private OutputType $outputFormat;
+    private bool $testMode = false;
 
     public function __construct(string $baseUrl, string $apiKey)
     {
@@ -39,23 +40,63 @@ class PQApiClient
         $this->outputFormat = $outputFormat;
     }
 
-    private function prepareQueryParams(array $queryParams): array
+    /**
+     * This method is used to enable or disable test mode.
+     * Test mode is only used in POST requests.
+     * When enabled, it will not perform any changes in the system, but will return a response as if the changes were made.
+     * That also means that you will not be able to fetch, for example, an order details after creating it in test mode - because it was not created in the system.
+     *
+     * @param bool $testMode
+     *
+     * @return void
+     */
+    public function setTestMode(bool $testMode)
     {
-        $queryParams['key'] = $this->apiKey;
-        if ($this->lang) $queryParams['lang'] = (string)$this->lang;
+        $this->testMode = $testMode;
+    }
 
-        foreach ($queryParams as $key => $value) {
+    private function prepareOutputValues(array $values): array
+    {
+        foreach ($values as $key => $value) {
             if ($value === null) {
-                unset($queryParams[$key]);
+                unset($values[$key]);
                 continue;
             }
 
-            if (is_array($value))
-                $value = new IdList($value);
+            if (is_array($value)) {
+                if (empty($value))
+                    continue;
+
+                // Check if the array is associative
+                if (array_keys($value) !== range(0, count($value) - 1)) {
+                    $values[$key] = $this->prepareOutputValues($value);
+                    continue;
+                }
+
+                $firstValue = reset($value);
+                if (is_array($firstValue))
+                    $values[$key] = $this->prepareOutputValues($value);
+                else
+                    $value = new IdList($value);
+            }
 
             if (is_object($value) && method_exists($value, "__toString"))
-                $queryParams[$key] = (string)$value;
+                $values[$key] = (string)$value;
         }
+
+        return $values;
+    }
+
+    private function prepareQueryParams(BaseMethod $method): array
+    {
+        $queryParams = $method->getQueryParams();
+        $queryParams['key'] = $this->apiKey;
+        if ($this->lang) $queryParams['lang'] = (string)$this->lang;
+
+        $queryParams = $this->prepareOutputValues($queryParams);
+
+        if ($method->usesBody() && $this->testMode)
+            $queryParams["test"] = true;
 
         return $queryParams;
     }
@@ -64,7 +105,7 @@ class PQApiClient
     {
         $url = $this->baseUrl . $method->getUrl() . "." . $this->outputFormat;
 
-        $queryParams = $this->prepareQueryParams($method->getQueryParams());
+        $queryParams = $this->prepareQueryParams($method);
         $queryString = http_build_query($queryParams);
         if ($queryString)
             $url .= "?" . $queryString;
@@ -77,7 +118,7 @@ class PQApiClient
      *
      * @param \TopSoft4U\Connector\Abstracts\BaseMethod $method
      *
-     * @return array
+     * @return array{output: string, statusCode: int}
      */
     public function executeMethod(BaseMethod $method): array
     {
@@ -91,9 +132,16 @@ class PQApiClient
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $methodType);
 
-        $methodTypesWithBody = ["POST", "PUT", "PATCH"];
-        if (in_array($methodType, $methodTypesWithBody)) {
+        if ($method->usesBody()) {
+            $bodyData = json_decode(json_encode($bodyData), true);
+            $bodyData = $this->prepareOutputValues($bodyData);
             $formData = http_build_query($bodyData);
+
+            // Prettify the form data for logging
+            $formPretty = str_replace("&", "\n", $formData);
+            $formPretty = str_replace("%5B", "[", $formPretty);
+            $formPretty = str_replace("%5D", "]", $formPretty);
+
             curl_setopt($curl, CURLOPT_POSTFIELDS, $formData);
         }
 

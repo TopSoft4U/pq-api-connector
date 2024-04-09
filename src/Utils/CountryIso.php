@@ -2,21 +2,14 @@
 
 namespace TopSoft4U\Connector\Utils;
 
-class CountryIso
+class CountryIso extends SimpleToString
 {
-    private string $value;
-
-    public function __construct(string $iso)
+    public function __construct(string $value)
     {
         // Must be 2 characters long, only letters
-        if (!preg_match('/^[a-zA-Z]{2}$/', $iso))
-            throw new \InvalidArgumentException("Invalid country ISO code: $iso");
+        if (!preg_match('/^[a-zA-Z]{2}$/', $value))
+            throw new \InvalidArgumentException("Invalid country ISO code: $value");
 
-        $this->value = $iso;
-    }
-
-    public function __toString()
-    {
-        return $this->value;
+        parent::__construct($value);
     }
 }

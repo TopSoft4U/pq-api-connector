@@ -5,7 +5,7 @@ namespace TopSoft4U\Connector\Utils;
 /**
  * List that ensures that all elements are integers and unique.
  */
-class IdList
+class IdList implements \JsonSerializable
 {
     private array $list = [];
 
@@ -34,6 +34,11 @@ class IdList
     }
 
     public function __toString()
+    {
+        return implode(",", $this->list);
+    }
+
+    public function jsonSerialize()
     {
         return implode(",", $this->list);
     }

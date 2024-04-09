@@ -2,41 +2,31 @@
 
 namespace TopSoft4U\Connector\Methods\GetCategoryAttributes;
 
-class GetCategoryAttributeType
+use TopSoft4U\Connector\Utils\SimpleToString;
+
+class GetCategoryAttributeType extends SimpleToString
 {
-    private string $value;
-    
-    private function __construct(string $value)
-    {
-        $this->value = $value;
-    }
-
-    public function __toString()
-    {
-        return $this->value;
-    }
-
     public static function MostRecentlyUsed(): self
     {
         return new self("mru");
     }
 
-    public static function Boolean(): GetCategoryAttributeType
+    public static function Boolean(): self
     {
         return new self("bool");
     }
-    
-    public static function Integer(): GetCategoryAttributeType
+
+    public static function Integer(): self
     {
         return new self("int");
     }
-    
-    public static function Text(): GetCategoryAttributeType
+
+    public static function Text(): self
     {
         return new self("text");
     }
-    
-    public static function Date(): GetCategoryAttributeType
+
+    public static function Date(): self
     {
         return new self("date");
     }

@@ -4,10 +4,8 @@ namespace TopSoft4U\Connector\Utils;
 
 use DateTime;
 
-class Date
+class Date extends SimpleToString
 {
-    public string $value;
-
     public function __construct(string $value)
     {
         $parts = explode("-", $value);
@@ -17,7 +15,7 @@ class Date
         if (!checkdate($parts[1], $parts[2], $parts[0]))
             throw new \InvalidArgumentException("Invalid date format - expected yyyy-MM-dd");
 
-        $this->value = $value;
+        parent::__construct($value);
     }
 
     public static function FromDateTime(DateTime $dateTime): Date
@@ -28,10 +26,5 @@ class Date
     public static function FromYMD(int $year, int $month, int $day): Date
     {
         return new Date("$year-$month-$day");
-    }
-
-    public function __toString()
-    {
-        return $this->value;
     }
 }

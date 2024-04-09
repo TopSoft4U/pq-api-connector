@@ -2,13 +2,11 @@
 
 namespace TopSoft4U\Connector\Utils;
 
-class OutputType
+class OutputType extends SimpleToString
 {
-    public string $value;
-
     private function __construct(string $value)
     {
-        $this->value = $value;
+        parent::__construct($value);
     }
 
     public static function Json(): OutputType
@@ -24,10 +22,5 @@ class OutputType
     public static function CSV(): OutputType
     {
         return new OutputType("csv");
-    }
-
-    public function __toString()
-    {
-        return $this->value;
     }
 }

@@ -2,22 +2,15 @@
 
 namespace TopSoft4U\Connector\Utils;
 
-class Currency
+class Currency extends SimpleToString
 {
-    public string $value;
-
-    public function __construct(string $currency)
+    public function __construct(string $value)
     {
         // Must be 3 letters, can be uppercase or lowercase
-        if (!preg_match('/^[A-Za-z]{3}$/', $currency))
+        if (!preg_match('/^[A-Za-z]{3}$/', $value))
             throw new \Exception("Invalid currency format - expected 3 letters");
 
-        $this->value = $currency;
-    }
-
-    public function __toString()
-    {
-        return $this->value;
+        parent::__construct($value);
     }
 
     //region Helpers methods for predefined currencies
