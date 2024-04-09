@@ -75,8 +75,9 @@ class CreateSaleRequest extends PostMethod
         return $result;
     }
 
-    public function formatData($data): array
+    public function formatData($data): CreateSaleResponse
     {
+        return CreateSaleResponse::FromData($data);
     }
 
     public function setDifferentDelivery(CreateSaleShipping $shipping)
