@@ -27,10 +27,10 @@ class CreateSaleOwnLabel implements JsonSerializable
                 "tracking_no" => $label->trackingNo,
             ];
 
-            if ($this->mode == (string) CreateSaleOwnLabelMode::PDF())
-                $item["url"] = $label->url;
-            else if ($this->mode == (string) CreateSaleOwnLabelMode::URL())
+            if ((string) $this->mode == (string) CreateSaleOwnLabelMode::PDF())
                 $item["data"] = $label->data;
+            else if ((string) $this->mode == (string) CreateSaleOwnLabelMode::URL())
+                $item["url"] = $label->url;
 
             $items[] = $item;
         }
