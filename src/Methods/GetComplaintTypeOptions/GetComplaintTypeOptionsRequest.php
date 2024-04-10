@@ -9,8 +9,14 @@ class GetComplaintTypeOptionsRequest extends GetMethod
     private int $saleId;
     private ?int $productId = null;
 
-    public function __construct(int $saleId, ?int $productId = null)
+    public function __construct(int $saleId, int $productId)
     {
+        if ($saleId <= 0)
+            throw new \InvalidArgumentException("Sale ID must be greater than 0");
+
+        if ($productId < 0)
+            throw new \InvalidArgumentException("Product ID must be greater than to 0. If you want get options for whole sale - set it to 0");
+
         $this->saleId = $saleId;
         $this->productId = $productId;
     }

@@ -5,7 +5,7 @@ namespace TopSoft4U\Connector\Methods\GetProductAttributes;
 class GetProductAttributeResponse
 {
     /**
-     * @var GetProductAttributeItem[]
+     * @var \TopSoft4U\Connector\Methods\GetProductAttributes\GetProductAttributeItem[]
      */
     public array $items = [];
 }

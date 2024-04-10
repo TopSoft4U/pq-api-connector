@@ -31,6 +31,12 @@ class CreateSaleRequest extends PostMethod
 
     public function __construct(int $fkShipmentType, int $fkPaymentType, SaleDocType $docType)
     {
+        if ($fkShipmentType <= 0)
+            throw new \InvalidArgumentException("Shipment type ID must be greater than 0");
+
+        if ($fkPaymentType <= 0)
+            throw new \InvalidArgumentException("Payment type ID must be greater than 0");
+
         $this->fkShipmentType = $fkShipmentType;
         $this->fkPaymentType = $fkPaymentType;
         $this->docType = $docType;

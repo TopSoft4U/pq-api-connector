@@ -12,6 +12,17 @@ abstract class BaseMethod
     abstract public function getBodyData(): array;
     abstract public function formatData($data);
 
+    /**
+     * Key = POST field name,
+     * Value = CURLFile object
+     *
+     * @return \CURLFile[]
+     */
+    public function getFiles(): array
+    {
+        return [];
+    }
+
     public function usesBody(): bool
     {
         return in_array($this->getMethodType(), self::METHOD_TYPES_WITH_BODY);

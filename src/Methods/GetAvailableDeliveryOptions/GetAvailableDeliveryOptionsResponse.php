@@ -5,7 +5,7 @@ namespace TopSoft4U\Connector\Methods\GetAvailableDeliveryOptions;
 class GetAvailableDeliveryOptionsResponse
 {
     /**
-     * @var GetAvailableDeliveryOptionsItem[]
+     * @var \TopSoft4U\Connector\Methods\GetAvailableDeliveryOptions\GetAvailableDeliveryOptionsItem[]
      */
     public array $items = [];
 }

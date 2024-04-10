@@ -135,18 +135,29 @@ class PQApiClient
         if ($method->usesBody()) {
             $bodyData = json_decode(json_encode($bodyData), true);
             $bodyData = $this->prepareOutputValues($bodyData);
-            $formData = http_build_query($bodyData);
 
-            // Prettify the form data for logging
-            $formPretty = str_replace("&", "\n", $formData);
-            $formPretty = str_replace("%5B", "[", $formPretty);
-            $formPretty = str_replace("%5D", "]", $formPretty);
+            if ($files = $method->getFiles())
+                $formData = array_merge($bodyData, $files);
+            else {
+                $formData = http_build_query($bodyData);
+
+                // Prettify the form data for logging
+//                $formPretty = str_replace("&", "\n", $formData);
+//                $formPretty = str_replace("%5B", "[", $formPretty);
+//                $formPretty = str_replace("%5D", "]", $formPretty);
+            }
 
             curl_setopt($curl, CURLOPT_POSTFIELDS, $formData);
         }
 
         $output = curl_exec($curl);
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if (!$statusCode) {
+            $error = curl_error($curl);
+            throw new \Exception("Failed to get response from the server. Error: " . $error);
+        }
+
         curl_close($curl);
 
         return [

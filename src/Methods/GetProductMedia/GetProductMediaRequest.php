@@ -12,6 +12,9 @@ class GetProductMediaRequest extends GetMethod
 
     public function __construct(int $id)
     {
+        if ($id <= 0)
+            throw new \InvalidArgumentException("ID must be greater than 0");
+
         $this->id = $id;
     }
 

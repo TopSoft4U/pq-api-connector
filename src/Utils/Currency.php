@@ -8,7 +8,7 @@ class Currency extends SimpleToString
     {
         // Must be 3 letters, can be uppercase or lowercase
         if (!preg_match('/^[A-Za-z]{3}$/', $value))
-            throw new \Exception("Invalid currency format - expected 3 letters");
+            throw new \InvalidArgumentException("Invalid currency format - expected 3 letters");
 
         parent::__construct($value);
     }

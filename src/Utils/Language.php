@@ -9,7 +9,7 @@ class Language extends SimpleToString
     {
         // Must be 3 letters, can be uppercase or lowercase
         if (!preg_match('/^[A-Za-z]{2}$/', $value))
-            throw new \Exception("Invalid locale format - expected 2 letters");
+            throw new \InvalidArgumentException("Invalid locale format - expected 2 letters");
 
         parent::__construct($value);
     }

@@ -25,6 +25,12 @@ class GetAvailableDeliveryOptionsRequest extends GetMethod
 
     public function __construct(CountryIso $country, Currency $currency, float $priceGross, float $weightGross)
     {
+        if ($priceGross <= 0)
+            throw new \InvalidArgumentException("Price gross must be greater than 0");
+
+        if ($weightGross <= 0)
+            throw new \InvalidArgumentException("Weight gross must be greater than 0");
+
         $this->country = $country;
         $this->currency = $currency;
         $this->priceGross = $priceGross;

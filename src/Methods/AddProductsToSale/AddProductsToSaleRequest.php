@@ -15,6 +15,12 @@ class AddProductsToSaleRequest extends PostMethod
 
     public function __construct(int $id, array $products)
     {
+        if ($id <= 0)
+            throw new \InvalidArgumentException("ID must be greater than 0");
+
+        if (count($products) === 0)
+            throw new \InvalidArgumentException("Products array must not be empty");
+
         $this->id = $id;
         $this->products = $products;
     }
