@@ -2,10 +2,10 @@
 
 namespace TopSoft4U\Connector\Methods\GetSaleDocuments;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetSaleDocumentsRequest extends GetMethod
+class GetSaleDocumentsRequest extends GetRequest
 {
     private int $id;
     public ?Date $date = null;

@@ -3,7 +3,7 @@
 namespace TopSoft4U\Connector;
 
 use InvalidArgumentException;
-use TopSoft4U\Connector\Abstracts\BaseMethod;
+use TopSoft4U\Connector\Abstracts\BaseRequest;
 use TopSoft4U\Connector\Utils\IdList;
 use TopSoft4U\Connector\Utils\Language;
 use TopSoft4U\Connector\Utils\OutputType;
@@ -87,7 +87,7 @@ class PQApiClient
         return $values;
     }
 
-    private function prepareQueryParams(BaseMethod $method): array
+    private function prepareQueryParams(BaseRequest $method): array
     {
         $queryParams = $method->getQueryParams();
         $queryParams['key'] = $this->apiKey;
@@ -101,7 +101,7 @@ class PQApiClient
         return $queryParams;
     }
 
-    private function getUrl(BaseMethod $method): string
+    private function getUrl(BaseRequest $method): string
     {
         $url = $this->baseUrl . $method->getUrl() . "." . $this->outputFormat;
 
@@ -116,11 +116,11 @@ class PQApiClient
     /**
      * This method is used to execute a method and get the raw response and status code.
      *
-     * @param \TopSoft4U\Connector\Abstracts\BaseMethod $method
+     * @param \TopSoft4U\Connector\Abstracts\BaseRequest $method
      *
      * @return array{output: string, statusCode: int}
      */
-    public function executeMethod(BaseMethod $method): array
+    public function executeMethod(BaseRequest $method): array
     {
         $url = $this->getUrl($method);
 
@@ -174,7 +174,7 @@ class PQApiClient
      * @throws \TopSoft4U\Connector\PQApiException
      * @throws \Exception
      */
-    public function sendRequest(BaseMethod $method)
+    public function sendRequest(BaseRequest $method)
     {
         $response = $this->executeMethod($method);
         $statusCode = $response["statusCode"];

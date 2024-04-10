@@ -2,9 +2,9 @@
 
 namespace TopSoft4U\Connector\Methods\GetProductCategoryTree;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 
-class GetProductCategoryTreeRequest extends GetMethod
+class GetProductCategoryTreeRequest extends GetRequest
 {
     //region Query params
     public ?int $fkParent = null;

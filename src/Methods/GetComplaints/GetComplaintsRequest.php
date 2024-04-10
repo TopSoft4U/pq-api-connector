@@ -2,10 +2,10 @@
 
 namespace TopSoft4U\Connector\Methods\GetComplaints;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetComplaintsRequest extends GetMethod
+class GetComplaintsRequest extends GetRequest
 {
     public ?array $id = null;
     public ?Date $modified = null;

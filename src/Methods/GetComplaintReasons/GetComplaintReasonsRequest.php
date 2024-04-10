@@ -2,10 +2,10 @@
 
 namespace TopSoft4U\Connector\Methods\GetComplaintReasons;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\DictionaryValue;
 
-class GetComplaintReasonsRequest extends GetMethod
+class GetComplaintReasonsRequest extends GetRequest
 {
     public function getUrl(): string
     {

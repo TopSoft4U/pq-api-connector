@@ -2,10 +2,10 @@
 
 namespace TopSoft4U\Connector\Methods\AddProductsToSale;
 
-use TopSoft4U\Connector\Abstracts\PostMethod;
+use TopSoft4U\Connector\Abstracts\PostRequest;
 use TopSoft4U\Connector\Utils\NotificationResponse;
 
-class AddProductsToSaleRequest extends PostMethod
+class AddProductsToSaleRequest extends PostRequest
 {
     private int $id;
     /**

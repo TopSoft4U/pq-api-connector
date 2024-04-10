@@ -2,9 +2,9 @@
 
 namespace TopSoft4U\Connector\Methods\GetSalePositions;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 
-class GetSalePositionsRequest extends GetMethod
+class GetSalePositionsRequest extends GetRequest
 {
     private int $id;
 

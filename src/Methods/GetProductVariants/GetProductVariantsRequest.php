@@ -2,9 +2,9 @@
 
 namespace TopSoft4U\Connector\Methods\GetProductVariants;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 
-class GetProductVariantsRequest extends GetMethod
+class GetProductVariantsRequest extends GetRequest
 {
     //region Query params
     private int $id;

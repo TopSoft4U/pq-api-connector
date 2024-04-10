@@ -2,9 +2,9 @@
 
 namespace TopSoft4U\Connector\Methods\CreateComplaint;
 
-use TopSoft4U\Connector\Abstracts\PostMethod;
+use TopSoft4U\Connector\Abstracts\PostRequest;
 
-class CreateComplaintRequest extends PostMethod
+class CreateComplaintRequest extends PostRequest
 {
     private int $saleId;
     private int $type;

@@ -2,7 +2,7 @@
 
 namespace TopSoft4U\Connector\Abstracts;
 
-abstract class BaseMethod
+abstract class BaseRequest
 {
     private const METHOD_TYPES_WITH_BODY = ["POST", "PUT", "PATCH"];
 

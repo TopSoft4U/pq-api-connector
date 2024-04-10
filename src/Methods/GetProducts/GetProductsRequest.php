@@ -2,11 +2,11 @@
 
 namespace TopSoft4U\Connector\Methods\GetProducts;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\Currency;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetProductsRequest extends GetMethod
+class GetProductsRequest extends GetRequest
 {
     //region Query params
     public ?array $id = null;

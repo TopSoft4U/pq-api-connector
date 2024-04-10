@@ -2,9 +2,9 @@
 
 namespace TopSoft4U\Connector\Methods\GetAccountData;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 
-class GetAccountDataRequest extends GetMethod
+class GetAccountDataRequest extends GetRequest
 {
     public function getUrl(): string
     {

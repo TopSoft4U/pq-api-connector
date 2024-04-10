@@ -2,11 +2,11 @@
 
 namespace TopSoft4U\Connector\Methods\CreateSale;
 
-use TopSoft4U\Connector\Abstracts\PostMethod;
+use TopSoft4U\Connector\Abstracts\PostRequest;
 use TopSoft4U\Connector\Utils\Currency;
 use TopSoft4U\Connector\Utils\SaleDocType;
 
-class CreateSaleRequest extends PostMethod
+class CreateSaleRequest extends PostRequest
 {
     public int $fkShipmentType;
     public int $fkPaymentType;

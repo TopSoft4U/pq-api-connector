@@ -2,7 +2,7 @@
 
 namespace TopSoft4U\Connector\Abstracts;
 
-abstract class GetMethod extends BaseMethod
+abstract class GetRequest extends BaseRequest
 {
     public function getMethodType(): string
     {

@@ -2,11 +2,11 @@
 
 namespace TopSoft4U\Connector\Methods\GetAvailableDeliveryOptions;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\CountryIso;
 use TopSoft4U\Connector\Utils\Currency;
 
-class GetAvailableDeliveryOptionsRequest extends GetMethod
+class GetAvailableDeliveryOptionsRequest extends GetRequest
 {
     public CountryIso $country;
     public Currency $currency;

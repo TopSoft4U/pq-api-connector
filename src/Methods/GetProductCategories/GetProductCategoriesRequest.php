@@ -2,10 +2,10 @@
 
 namespace TopSoft4U\Connector\Methods\GetProductCategories;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetProductCategoriesRequest extends GetMethod
+class GetProductCategoriesRequest extends GetRequest
 {
     //region Query params
     public ?array $id = null;

@@ -2,9 +2,9 @@
 
 namespace TopSoft4U\Connector\Methods\GetComplaintTypeOptions;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 
-class GetComplaintTypeOptionsRequest extends GetMethod
+class GetComplaintTypeOptionsRequest extends GetRequest
 {
     private int $saleId;
     private ?int $productId = null;

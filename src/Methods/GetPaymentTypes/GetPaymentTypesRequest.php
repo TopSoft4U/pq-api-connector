@@ -2,11 +2,11 @@
 
 namespace TopSoft4U\Connector\Methods\GetPaymentTypes;
 
-use TopSoft4U\Connector\Abstracts\GetMethod;
+use TopSoft4U\Connector\Abstracts\GetRequest;
 use TopSoft4U\Connector\Utils\CountryIso;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetPaymentTypesRequest extends GetMethod
+class GetPaymentTypesRequest extends GetRequest
 {
     public CountryIso $country;
 
