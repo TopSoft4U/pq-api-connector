@@ -11,8 +11,8 @@ use TopSoft4U\Connector\Utils\OutputType;
 class PQApiClient
 {
     private ?Language $lang = null;
-    private string $baseUrl;
-    private string $apiKey;
+    protected string $baseUrl;
+    protected string $apiKey;
     private OutputType $outputFormat;
     private bool $testMode = false;
 
@@ -87,7 +87,7 @@ class PQApiClient
         return $values;
     }
 
-    private function prepareQueryParams(BaseRequest $method): array
+    protected function prepareQueryParams(BaseRequest $method): array
     {
         $queryParams = $method->getQueryParams();
         $queryParams['key'] = $this->apiKey;
@@ -101,7 +101,7 @@ class PQApiClient
         return $queryParams;
     }
 
-    private function getUrl(BaseRequest $method): string
+    protected function getUrl(BaseRequest $method): string
     {
         $url = $this->baseUrl . $method->getUrl() . "." . $this->outputFormat;
 
