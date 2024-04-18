@@ -27,7 +27,7 @@ composer require topsoft4u/api-connector
 
 ## Usage
 
-Each method has its own example in the [examples](examples) directory.
+Each method has its own example in the [examples](example) directory.
 
 For explanation of each method, please refer to the API documentation links mentioned earlier.
 
@@ -39,3 +39,7 @@ For explanation of each method, please refer to the API documentation links ment
 - Option to change the output format (JSON/XML).
 - You can fetch the JSON/XML file without parsing (usable for testing).
 - Test mode for POST methods (sends data to the server, but it's not saved).
+
+## Releasing a new version
+1. Update the version in the `composer.json` file with `bash /scripts/bump_version.sh`.
+2. Finish the release with `bash /scripts/commit_tag_push.sh` - which will create a new tag and push it to the repository.

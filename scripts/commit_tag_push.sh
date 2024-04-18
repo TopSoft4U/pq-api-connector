@@ -7,6 +7,9 @@ VERSION=`grep -m1 'version' composer.json | awk -F': ' '{ print $2 }' | sed 's/[
 git add .
 git commit -m "Bump version to $VERSION"
 
+# Push the commit
+git push origin main
+
 # Add a new tag and push
 git tag v${VERSION}
 git push origin v${VERSION}
