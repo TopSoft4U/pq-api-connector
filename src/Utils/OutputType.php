@@ -4,8 +4,14 @@ namespace TopSoft4U\Connector\Utils;
 
 class OutputType extends SimpleToString
 {
-    private function __construct(string $value)
+    private const ALLOWED_TYPES = ["json", "xml"];
+
+    public function __construct(string $value)
     {
+        $value = strtolower($value);
+        if (!in_array($value, self::ALLOWED_TYPES))
+            throw new \InvalidArgumentException("Invalid output type: $value");
+
         parent::__construct($value);
     }
 
@@ -17,10 +23,5 @@ class OutputType extends SimpleToString
     public static function XML(): OutputType
     {
         return new OutputType("xml");
-    }
-
-    public static function CSV(): OutputType
-    {
-        return new OutputType("csv");
     }
 }

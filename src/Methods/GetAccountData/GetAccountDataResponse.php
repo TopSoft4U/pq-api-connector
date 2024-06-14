@@ -9,6 +9,7 @@ class GetAccountDataResponse
     public ?string $name = null;
 
     public bool $isCompany;
+    public bool $dropshipping;
 
     public ?string $countryInvoice = null;
     public ?string $cityInvoice = null;
@@ -37,6 +38,7 @@ class GetAccountDataResponse
         $item->lastName = $data["lastname"];
         $item->name = $data["name"];
         $item->isCompany = $data["iscompany"];
+        $item->dropshipping = $data["dropshipping"];
 
         $item->countryInvoice = $data["country_i"];
         $item->cityInvoice = $data["city_i"];

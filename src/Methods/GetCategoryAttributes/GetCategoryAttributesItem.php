@@ -9,7 +9,10 @@ class GetCategoryAttributesItem
     public string $name;
     public ?string $description = null;
     public string $type;
-    public int $fkCategory;
+    /**
+     * @var int[]
+     */
+    public array $categoryIds;
     public int $variantType;
     public ?string $unit = null;
 
@@ -22,7 +25,7 @@ class GetCategoryAttributesItem
         $item->name = $data["name"];
         $item->description = $data["description"];
         $item->type = $data["type"];
-        $item->fkCategory = $data["fkcategory"];
+        $item->categoryIds = $data["categoryids"];
         $item->variantType = $data["varianttype"];
         $item->unit = $data["unit"];
 

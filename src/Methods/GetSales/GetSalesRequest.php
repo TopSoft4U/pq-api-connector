@@ -9,9 +9,12 @@ class GetSalesRequest extends GetRequest
 {
     public ?array $id = null;
     public ?string $name = null;
+    public ?string $invoiceName = null;
     public ?Date $date = null;
     public ?Date $modified = null;
     public ?array $type = null;
+    public ?int $productId = null;
+    public ?bool $isAttachable = null;
 
     public function getUrl(): string
     {
@@ -27,6 +30,9 @@ class GetSalesRequest extends GetRequest
         if ($this->name !== null)
             $result["name"] = $this->name;
 
+        if ($this->invoiceName !== null)
+            $result["invoicename"] = $this->invoiceName;
+
         if ($this->date !== null)
             $result["date"] = $this->date;
 
@@ -35,6 +41,12 @@ class GetSalesRequest extends GetRequest
 
         if ($this->type !== null)
             $result["type"] = $this->type;
+
+        if ($this->productId !== null)
+            $result["productid"] = $this->productId;
+
+        if ($this->isAttachable !== null)
+            $result["isattachable"] = $this->isAttachable;
 
         return $result;
     }

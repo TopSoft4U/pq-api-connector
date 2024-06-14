@@ -42,9 +42,8 @@ class GetSalesItem
     public string $paymentTypeName;
     public int $shipmentTypeId;
     public string $shipmentTypeName;
-    public bool $isPaid;
-    public bool $isPacked;
     public bool $isShipped;
+    public bool $isAttachable;
     public array $mergedIds = [];
 
     /**
@@ -114,9 +113,8 @@ class GetSalesItem
         $item->paymentTypeName = $data['paymenttypename'];
         $item->shipmentTypeId = $data['shipmenttypeid'];
         $item->shipmentTypeName = $data['shipmenttypename'];
-        $item->isPaid = $data['ispaid'];
-        $item->isPacked = $data['ispacked'];
         $item->isShipped = $data['isshipped'];
+        $item->isAttachable = $data['isattachable'];
 
         $item->mergedIds = array_filter(array_map('intval', explode(',', $data['mergedids'])));
 
