@@ -15,9 +15,6 @@ class GetProductsRequest extends GetRequest
     public ?array $productCategoryId = null;
     public ?Date $modified = null;
     public ?Currency $currency = null;
-    public ?string $fit1 = null;
-    public ?string $fit2 = null;
-    public ?string $fit3 = null;
 
     public ?bool $adult = null;
     public ?int $leadTime = null;
@@ -49,15 +46,6 @@ class GetProductsRequest extends GetRequest
 
         if ($this->currency !== null)
             $result['currency'] = $this->currency;
-
-        if ($this->fit1 !== null)
-            $result['fit1'] = $this->fit1;
-
-        if ($this->fit2 !== null)
-            $result['fit2'] = $this->fit2;
-
-        if ($this->fit3 !== null)
-            $result['fit3'] = $this->fit3;
 
         if ($this->adult !== null)
             $result['adult'] = $this->adult;
