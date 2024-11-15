@@ -9,12 +9,12 @@ Type-safe PHP connector for websites using ProQoS backend services.
 ## Application
 This connector can be used for the following websites:
 
-|                                          Website | 📕 Documentation                                |
-|----------------------------------------------------:|:------------------------------------------------|
-|                   [e-hedo.pl](https://e-hedo.pl) | [📕 LINK](https://e-hedo.pl/apidocs)            |
-|                 [magboss.pl](https://magboss.pl) | [📕 LINK](https://magboss.pl/apidocs)           |
-| [hedo-electro.com](https://b2b.hedo-electro.com) | [📕 LINK](https://b2b.hedo-electro.com/apidocs) |
-|           [hedo-pets.com](https://hedo-pets.com) | [📕 LINK](https://hedo-pets.com/apidocs)        |
+|                                                        Website | 📕 Documentation                                |
+|---------------------------------------------------------------:|:------------------------------------------------|
+|                                 [e-hedo.pl](https://e-hedo.pl) | [📕 LINK](https://e-hedo.pl/apidocs)            |
+|                               [magboss.pl](https://magboss.pl) | [📕 LINK](https://magboss.pl/apidocs)           |
+|           [b2b.onesto-energy.pl](https://b2b.onesto-energy.pl) | [📕 LINK](https://b2b.onesto-energy.pl/apidocs) |
+|                         [hedo-pets.com](https://hedo-pets.com) | [📕 LINK](https://hedo-pets.com/apidocs)        |
 
 **Note:** For each website, you need a separate API key. To get one, please use the contact form on specific website.
 

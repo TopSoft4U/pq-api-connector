@@ -10,7 +10,7 @@ class Host
 {
     const E_HEDO = "https://e-hedo.com/api";
     const MAGBOSS = "https://magboss.pl/api";
-    const HEDO_ELECTRO = "https://b2b.hedo-electro.com/api";
+    const ONESTO_ENERGY = "https://b2b.onesto-energy.pl/api";
     const HEDO_PETS = "https://hedo-pets.com/api";
     const HALOFUTURE = "https://halofuture.com/api";
 }
