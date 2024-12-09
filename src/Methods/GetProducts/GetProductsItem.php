@@ -51,6 +51,10 @@ class GetProductsItem
     public ?DictionaryValue $productUnit = null;
     public ?DictionaryValue $productGroup = null;
 
+    public int $producerId;
+    public int $responsibleCompanyId;
+    public ?string $safetyInformation = null;
+
     /**
      * In kg
      * @var float
@@ -108,6 +112,10 @@ class GetProductsItem
         $item->cnCode = $row["cncode"];
         $item->categories = $row["categories"];
         $item->images = $row["images"];
+
+        $item->producerId = $row["producerid"];
+        $item->responsibleCompanyId = $row["responsiblecompanyid"];
+        $item->safetyInformation = $row["safetyinformation"];
 
         return $item;
     }

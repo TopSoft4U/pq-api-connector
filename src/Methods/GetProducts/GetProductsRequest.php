@@ -17,6 +17,7 @@ class GetProductsRequest extends GetRequest
     public ?Currency $currency = null;
 
     public ?bool $adult = null;
+    public ?bool $gpsrReady = null;
     public ?int $leadTime = null;
     //endregion
 
@@ -49,6 +50,9 @@ class GetProductsRequest extends GetRequest
 
         if ($this->adult !== null)
             $result['adult'] = $this->adult;
+
+        if ($this->gpsrReady !== null)
+            $result['gpsr_ready'] = $this->gpsrReady;
 
         if ($this->leadTime !== null)
             $result['leadtime'] = $this->leadTime;
