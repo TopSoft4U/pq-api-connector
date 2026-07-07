@@ -1,13 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductCategories;
 
-use TopSoft4U\Connector\Abstracts\GetRequest;
+use TopSoft4U\Connector\Abstracts\PaginatedRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetProductCategoriesRequest extends GetRequest
+class GetProductCategoriesRequest extends PaginatedRequest
 {
     //region Query params
+    /** @var int[]|null */
     public ?array $id = null;
     public ?int $fkParent = null;
     public ?Date $modified = null;
@@ -19,7 +21,7 @@ class GetProductCategoriesRequest extends GetRequest
         return "/getProductCategories";
     }
 
-    public function getQueryParams(): array
+    protected function getOwnQueryParams(): array
     {
         $result = [];
 
@@ -38,10 +40,12 @@ class GetProductCategoriesRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetProductCategoriesResponse
+    public function formatData(array $data): GetProductCategoriesResponse
     {
         $result = new GetProductCategoriesResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetProductCategoryItem::FromData($row);
         }
 

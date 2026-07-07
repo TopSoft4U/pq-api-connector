@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductCategoryTree;
 
@@ -16,19 +17,28 @@ class GetProductCategoryTreeItem
      */
     public array $children = [];
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function FromData(array $data): self
     {
         $item = new self();
-        $item->id = $data["id"];
-        $item->modified = $data["modified"];
-        $item->name = $data["name"];
-        $item->fkParent = $data["fkparent"];
-        $item->order = $data["order"];
-        $item->countPublished = $data["countpublished"];
-        $item->visible = $data["visible"];
+        $item->id = is_numeric($data["id"]) ? (int)$data["id"] : 0;
+        $item->modified = is_string($data["modified"]) ? $data["modified"] : null;
+        $item->name = is_string($data["name"]) ? $data["name"] : "";
+        $item->fkParent = is_numeric($data["fkparent"]) ? (int)$data["fkparent"] : 0;
+        $item->order = is_numeric($data["order"]) ? (int)$data["order"] : 0;
+        $item->countPublished = is_numeric($data["countpublished"]) ? (int)$data["countpublished"] : 0;
+        $item->visible = (bool)$data["visible"];
 
-        foreach ($data["children"] as $child) {
-            $item->children[] = self::FromData($child);
+        $children = $data["children"] ?? [];
+        if (is_array($children)) {
+            foreach ($children as $child) {
+                if (is_array($child)) {
+                    /** @var array<string, mixed> $child */
+                    $item->children[] = self::FromData($child);
+                }
+            }
         }
 
         return $item;

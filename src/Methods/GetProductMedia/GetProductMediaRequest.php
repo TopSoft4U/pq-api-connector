@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductMedia;
 
@@ -30,10 +31,12 @@ class GetProductMediaRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): GetProductMediaResponse
+    public function formatData(array $data): GetProductMediaResponse
     {
         $result = new GetProductMediaResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetProductMediaItem::FromData($row);
         }
 

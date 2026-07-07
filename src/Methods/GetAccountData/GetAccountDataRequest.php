@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetAccountData;
 
@@ -16,7 +17,7 @@ class GetAccountDataRequest extends GetRequest
         return [];
     }
 
-    public function formatData($data): GetAccountDataResponse
+    public function formatData(array $data): GetAccountDataResponse
     {
         return GetAccountDataResponse::FromData($data);
     }

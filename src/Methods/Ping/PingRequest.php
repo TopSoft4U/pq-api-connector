@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\Ping;
 
@@ -16,7 +17,7 @@ class PingRequest extends GetRequest
         return [];
     }
 
-    public function formatData($data): void
+    public function formatData(array $data): void
     {
     }
 }

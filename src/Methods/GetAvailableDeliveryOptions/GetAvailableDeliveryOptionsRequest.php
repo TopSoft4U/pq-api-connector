@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetAvailableDeliveryOptions;
 
@@ -52,10 +53,12 @@ class GetAvailableDeliveryOptionsRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): GetAvailableDeliveryOptionsResponse
+    public function formatData(array $data): GetAvailableDeliveryOptionsResponse
     {
         $result = new GetAvailableDeliveryOptionsResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetAvailableDeliveryOptionsItem::FromData($row);
         }
 

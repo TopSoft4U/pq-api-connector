@@ -1,0 +1,39 @@
+[
+    {
+        "shipmentid": 34,
+        "shipmentname": "DPD",
+        "shipmentdescription": "DPD courier",
+        "estimateddeliverytime": "1-2 days",
+        "tag": "dpd",
+        "pickuphour": "16:00",
+        "pickuphourunix": 1690000000,
+        "available": 1,
+        "unavailablereason": "",
+        "minprice": 0,
+        "maxprice": 1000,
+        "maxlength": 100,
+        "maxsizex": 60,
+        "maxsizey": 40,
+        "maxsizez": 30,
+        "mincapacity": 0,
+        "maxcapacity": 30,
+        "price": "5,00 zł",
+        "pricenoformat": 5.0,
+        "pricegross": "6,15 zł",
+        "pricegrossnoformat": 6.15,
+        "packagepricenoformat": 1.0,
+        "packagepricegrossnoformat": 1.23,
+        "payment": [
+            {
+                "paymentid": 5,
+                "name": "PayPal",
+                "description": "Pay via PayPal",
+                "tag": "paypal",
+                "price": "2,00 zł",
+                "pricenoformat": 2.0,
+                "pricegross": "2,46 zł",
+                "pricegrossnoformat": 2.46
+            }
+        ]
+    }
+]

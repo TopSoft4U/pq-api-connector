@@ -1,0 +1,84 @@
+# Local multi-version test matrix covering PHP 7.4 - 8.5.
+#
+# Run a single version:
+#     docker compose run --rm php83
+#
+# Run them all:
+#     bash scripts/test.sh
+#
+# Each service shares the same image definition (see Dockerfile); only the
+# PHP_VERSION build arg differs. The anonymous /app/vendor volume isolates the
+# per-PHP-version composer install so versions never fight over a shared vendor/.
+
+x-php-base: &php-base
+  build:
+    context: .
+    dockerfile: Dockerfile
+  working_dir: /app
+  volumes:
+    - .:/app
+    - /app/vendor
+  # Resolve deps fresh for this PHP version, run the test suite, then static analysis.
+  # Libraries should not ship a composer.lock; we resolve per-version so the
+  # 7.4 matrix never picks up an 8.x-only transitive dependency.
+  command: >-
+    sh -c "composer update --no-interaction --quiet &&
+           vendor/bin/phpunit --no-coverage &&
+           vendor/bin/phpstan analyse --no-progress"
+
+services:
+  php74:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "7.4"
+
+  php80:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.0"
+
+  php81:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.1"
+
+  php82:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.2"
+
+  php83:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.3"
+
+  php84:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.4"
+
+  php85:
+    <<: *php-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.5"

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateComplaint;
 
@@ -14,6 +15,9 @@ class CreateComplaintDelivery implements JsonSerializable
         $this->fkShipmentType = $fkShipmentType;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         $result = [

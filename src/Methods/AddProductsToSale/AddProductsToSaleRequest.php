@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\AddProductsToSale;
 
@@ -11,8 +12,14 @@ class AddProductsToSaleRequest extends PostRequest
     /**
      * @var \TopSoft4U\Connector\Methods\CreateSale\CreateSaleProduct[]
      */
+    /**
+     * @var \TopSoft4U\Connector\Methods\CreateSale\CreateSaleProduct[]
+     */
     private array $products;
 
+    /**
+     * @param \TopSoft4U\Connector\Methods\CreateSale\CreateSaleProduct[] $products
+     */
     public function __construct(int $id, array $products)
     {
         if ($id <= 0)
@@ -43,7 +50,7 @@ class AddProductsToSaleRequest extends PostRequest
         ];
     }
 
-    public function formatData($data): NotificationResponse
+    public function formatData(array $data): NotificationResponse
     {
         return NotificationResponse::FromData($data);
     }

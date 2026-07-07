@@ -1,27 +1,31 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductMedia;
 
 class GetProductMediaItem
 {
-    public int $id;
     public ?string $name;
-    public ?string $mediaName;
     public ?string $created;
     public string $src;
     public string $ext;
     public int $size;
+    public int $fkProduct;
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function FromData(array $data): self
     {
         $item = new self();
-        $item->id = $data["id"];
-        $item->name = $data["name"];
-        $item->mediaName = $data["medianame"];
-        $item->created = $data["created"];
-        $item->src = $data["src"];
-        $item->ext = $data["ext"];
-        $item->size = $data["size"] ?? 0;
+        $item->name = is_string($data["name"] ?? null) ? $data["name"] : null;
+        $item->created = is_string($data["created"] ?? null) ? $data["created"] : null;
+        $item->src = is_string($data["src"]) ? $data["src"] : "";
+        $item->ext = is_string($data["ext"]) ? $data["ext"] : "";
+        $size = $data["size"] ?? 0;
+        $item->size = is_numeric($size) ? (int)$size : 0;
+        $fkp = $data["fkproduct"];
+        $item->fkProduct = is_numeric($fkp) ? (int)$fkp : 0;
 
         return $item;
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateComplaint;
 
@@ -15,6 +16,9 @@ class CreateComplaintRequest extends PostRequest
     private string $bankAccount;
     private string $swift;
 
+    /**
+     * @var \CURLFile[]
+     */
     private array $pictures = [];
 
     public ?CreateComplaintReturnAddress $returnAddress = null;
@@ -70,7 +74,7 @@ class CreateComplaintRequest extends PostRequest
             "saleid" => $this->saleId,
             "type" => $this->type,
             "productid" => $this->productId,
-            "quantity" => $this->quantity,
+            "qty" => $this->quantity,
             "description" => $this->description,
             "bankaccount" => $this->bankAccount,
             "swift" => $this->swift,
@@ -85,6 +89,9 @@ class CreateComplaintRequest extends PostRequest
         return $result;
     }
 
+    /**
+     * @return array<string, \CURLFile>
+     */
     public function getFiles(): array
     {
         $result = [];
@@ -95,12 +102,15 @@ class CreateComplaintRequest extends PostRequest
         return $result;
     }
 
-    public function formatData($data)
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function formatData(array $data)
     {
         return CreateComplaintResponse::FromData($data);
     }
 
-    public function addPicture(\CURLFile $file)
+    public function addPicture(\CURLFile $file): void
     {
         if (count($this->pictures) >= 3)
             throw new \Exception("Maximum 3 pictures allowed");

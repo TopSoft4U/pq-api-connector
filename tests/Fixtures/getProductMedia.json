@@ -1,0 +1,10 @@
+[
+    {
+        "name": "image.png",
+        "created": "2018-09-25 11:34:32",
+        "src": "https://example.com/image.php?name=abc.png",
+        "ext": "png",
+        "size": 369619,
+        "fkproduct": 45356
+    }
+]

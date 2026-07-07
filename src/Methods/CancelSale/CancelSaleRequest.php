@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CancelSale;
 
@@ -29,7 +30,7 @@ class CancelSaleRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): NotificationResponse
+    public function formatData(array $data): NotificationResponse
     {
         return NotificationResponse::FromData($data);
     }

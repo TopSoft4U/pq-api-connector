@@ -1,14 +1,17 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetCategoryAttributes;
 
-use TopSoft4U\Connector\Abstracts\GetRequest;
+use TopSoft4U\Connector\Abstracts\PaginatedRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetCategoryAttributesRequest extends GetRequest
+class GetCategoryAttributesRequest extends PaginatedRequest
 {
     //region Query params
+    /** @var int[]|null */
     public ?array $id = null;
+    /** @var int[]|null */
     public ?array $categoryId = null;
     public ?string $name = null;
     public ?Date $modified = null;
@@ -20,7 +23,7 @@ class GetCategoryAttributesRequest extends GetRequest
         return "/getCategoryAttributes";
     }
 
-    public function getQueryParams(): array
+    protected function getOwnQueryParams(): array
     {
         $result = [];
 
@@ -42,10 +45,12 @@ class GetCategoryAttributesRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetCategoryAttributesResponse
+    public function formatData(array $data): GetCategoryAttributesResponse
     {
         $result = new GetCategoryAttributesResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetCategoryAttributesItem::FromData($row);
         }
 

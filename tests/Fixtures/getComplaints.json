@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "created": "2018-09-28 13:47:28",
+        "modified": "2018-09-28 13:47:36",
+        "name": "COMPL/1",
+        "description": "Defective product",
+        "fkproduct": 45356,
+        "productname": "Foil",
+        "qty": 1,
+        "fksale": 205430,
+        "orderno": "Z18/33482",
+        "invoiceno": "--",
+        "fkcomplaintstatus": 1,
+        "complaintstatusname": "Open",
+        "fkcomplainttype": 3,
+        "complainttypename": "Damaged",
+        "pictures": ["https://example.com/pic1.png", "https://example.com/pic2.png"]
+    },
+    {
+        "id": 2,
+        "created": "2018-09-29 13:47:28",
+        "modified": "2018-09-29 13:47:36",
+        "name": "COMPL/2",
+        "description": null,
+        "fkproduct": 0,
+        "productname": "Whole order",
+        "qty": 2,
+        "fksale": 205431,
+        "orderno": "Z18/33483",
+        "invoiceno": "FV/1",
+        "fkcomplaintstatus": 2,
+        "complaintstatusname": "Closed",
+        "fkcomplainttype": 1,
+        "complainttypename": "Missing",
+        "pictures": ""
+    }
+]

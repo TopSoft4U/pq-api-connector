@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetAvailableDeliveryOptions;
 
@@ -14,6 +15,9 @@ class GetAvailableDeliveryOptionsItem
     public float $minPrice;
     public float $maxPrice;
     public float $maxLength;
+    public float $maxSizeX;
+    public float $maxSizeY;
+    public float $maxSizeZ;
     public float $minCapacity;
     public float $maxCapacity;
     public string $tag;
@@ -51,37 +55,52 @@ class GetAvailableDeliveryOptionsItem
      */
     public array $payments;
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function FromData(array $data): self
     {
         $item = new self();
-        $item->shipmentId = $data["shipmentid"];
-        $item->shipmentName = $data["shipmentname"];
-        $item->shipmentDescription = $data["shipmentdescription"];
+        $item->shipmentId = is_numeric($data["shipmentid"]) ? (int)$data["shipmentid"] : 0;
+        $item->shipmentName = is_string($data["shipmentname"]) ? $data["shipmentname"] : "";
+        $item->shipmentDescription = is_string($data["shipmentdescription"]) ? $data["shipmentdescription"] : null;
 
-        $item->estimatedDeliveryTime = $data["estimateddeliverytime"];
+        $item->estimatedDeliveryTime = is_string($data["estimateddeliverytime"]) ? $data["estimateddeliverytime"] : null;
 
-        $item->minPrice = $data["minprice"];
-        $item->maxPrice = $data["maxprice"];
-        $item->maxLength = $data["maxlength"];
-        $item->minCapacity = $data["mincapacity"];
-        $item->maxCapacity = $data["maxcapacity"];
+        $item->minPrice = is_numeric($data["minprice"]) ? (float)$data["minprice"] : 0.0;
+        $item->maxPrice = is_numeric($data["maxprice"]) ? (float)$data["maxprice"] : 0.0;
+        $item->maxLength = is_numeric($data["maxlength"]) ? (float)$data["maxlength"] : 0.0;
+        $item->maxSizeX = is_numeric($data["maxsizex"]) ? (float)$data["maxsizex"] : 0.0;
+        $item->maxSizeY = is_numeric($data["maxsizey"]) ? (float)$data["maxsizey"] : 0.0;
+        $item->maxSizeZ = is_numeric($data["maxsizez"]) ? (float)$data["maxsizez"] : 0.0;
+        $item->minCapacity = is_numeric($data["mincapacity"]) ? (float)$data["mincapacity"] : 0.0;
+        $item->maxCapacity = is_numeric($data["maxcapacity"]) ? (float)$data["maxcapacity"] : 0.0;
 
-        $item->tag = $data["tag"];
+        $item->tag = is_string($data["tag"]) ? $data["tag"] : "";
 
-        if ($data["pickuphourunix"])
-            $item->pickupHour = DateTime::createFromFormat('U', $data["pickuphourunix"]);
+        $unix = $data["pickuphourunix"];
+        if (is_numeric($unix)) {
+            $dt = DateTime::createFromFormat('U', (string)$unix) ?: null;
+            $item->pickupHour = $dt;
+        }
 
-        $item->available = $data["available"];
-        $item->unavailableReason = $data["unavailablereason"];
+        $item->available = (bool)$data["available"];
+        $item->unavailableReason = is_string($data["unavailablereason"]) ? $data["unavailablereason"] : null;
 
-        $item->price = $data["pricenoformat"] ?? null;
-        $item->priceGross = $data["pricegrossnoformat"] ?? null;
-        $item->packagePriceGross = $data["packagepricegrossnoformat"] ?? null;
-        $item->packagePrice = $data["packagepricenoformat"] ?? null;
+        $item->price = is_numeric($data["pricenoformat"] ?? null) ? (float)$data["pricenoformat"] : null;
+        $item->priceGross = is_numeric($data["pricegrossnoformat"] ?? null) ? (float)$data["pricegrossnoformat"] : null;
+        $item->packagePriceGross = is_numeric($data["packagepricegrossnoformat"] ?? null) ? (float)$data["packagepricegrossnoformat"] : null;
+        $item->packagePrice = is_numeric($data["packagepricenoformat"] ?? null) ? (float)$data["packagepricenoformat"] : null;
 
         $item->payments = [];
-        foreach ($data["payment"] as $payment) {
-            $item->payments[] = GetAvailableDeliveryOptionsPayment::FromData($payment);
+        $paymentList = $data["payment"];
+        if (is_array($paymentList)) {
+            foreach ($paymentList as $payment) {
+                if (is_array($payment)) {
+                    /** @var array<string, mixed> $payment */
+                    $item->payments[] = GetAvailableDeliveryOptionsPayment::FromData($payment);
+                }
+            }
         }
 
         return $item;

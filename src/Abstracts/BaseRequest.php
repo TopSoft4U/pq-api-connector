@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Abstracts;
 
@@ -8,9 +9,22 @@ abstract class BaseRequest
 
     abstract public function getUrl(): string;
     abstract public function getMethodType(): string;
+
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function getQueryParams(): array;
+
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function getBodyData(): array;
-    abstract public function formatData($data);
+
+    /**
+     * @param array<string, mixed> $data
+     * @return mixed
+     */
+    abstract public function formatData(array $data);
 
     /**
      * Key = POST field name,

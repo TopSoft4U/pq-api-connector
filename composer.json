@@ -1,6 +1,6 @@
 {
   "name": "topsoft4u/pq-api-connector",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "homepage": "https://topsoft4u.com",
   "keywords": [
     "proqos",
@@ -16,8 +16,15 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "TopSoft4U\\Connector\\": "src/"
+      "TopSoft4U\\Connector\\Tests\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6",
+    "phpstan/phpstan": "^2.0"
   },
   "authors": [
     {

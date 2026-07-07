@@ -1,0 +1,8 @@
+{
+    "ids": [205430],
+    "messages": {
+        "success": ["Sale created"],
+        "danger": [],
+        "warning": []
+    }
+}

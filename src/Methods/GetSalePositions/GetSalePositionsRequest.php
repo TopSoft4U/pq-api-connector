@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetSalePositions;
 
@@ -25,10 +26,12 @@ class GetSalePositionsRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): GetSalePositionsResponse
+    public function formatData(array $data): GetSalePositionsResponse
     {
         $result = new GetSalePositionsResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetSalePositionsItem::FromData($row);
         }
 

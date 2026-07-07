@@ -1,0 +1,8 @@
+{
+    "id": 42,
+    "messages": {
+        "success": ["Complaint created"],
+        "danger": [],
+        "warning": []
+    }
+}

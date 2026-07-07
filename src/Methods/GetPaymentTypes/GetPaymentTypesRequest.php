@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetPaymentTypes;
 
@@ -10,9 +11,11 @@ class GetPaymentTypesRequest extends GetRequest
 {
     public CountryIso $country;
 
+    /** @var int[]|null */
     public ?array $id = null;
     public ?Date $modified = null;
     public ?string $name = null;
+    /** @var int[]|null */
     public ?array $fkShipmentType = null;
 
     public function __construct(CountryIso $country)
@@ -46,10 +49,12 @@ class GetPaymentTypesRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetPaymentTypesResponse
+    public function formatData(array $data): GetPaymentTypesResponse
     {
         $result = new GetPaymentTypesResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetPaymentTypesItem::FromData($row);
         }
 

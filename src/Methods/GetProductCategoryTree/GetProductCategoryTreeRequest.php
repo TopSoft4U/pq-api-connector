@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductCategoryTree;
 
@@ -25,10 +26,12 @@ class GetProductCategoryTreeRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetProductCategoryTreeResponse
+    public function formatData(array $data): GetProductCategoryTreeResponse
     {
         $result = new GetProductCategoryTreeResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetProductCategoryTreeItem::FromData($row);
         }
 
