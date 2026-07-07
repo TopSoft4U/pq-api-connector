@@ -22,7 +22,7 @@ This connector can be used for the following websites:
 You can install the connector via Composer using the following command:
 
 ```bash
-composer require topsoft4u/api-connector
+composer require topsoft4u/pq-api-connector
 ```
 
 ## Usage
