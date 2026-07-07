@@ -1,1 +1,21 @@
-/scripts export-ignore
+# Strip development-only files from release archives (what `composer require`
+# downloads). Library users get only the runnable package + docs.
+
+# Test suite and fixtures
+/tests                    export-ignore
+
+# Static analysis / test config
+phpstan.neon              export-ignore
+phpstan-baseline.neon     export-ignore
+phpunit.xml.dist          export-ignore
+
+# Local docker test environment
+Dockerfile                export-ignore
+docker-compose.yml        export-ignore
+.dockerignore             export-ignore
+
+# CI
+/.github                  export-ignore
+
+# Release helper scripts (pre-existing)
+/scripts                  export-ignore
