@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetSales;
 
@@ -44,6 +45,10 @@ class GetSalesItem
     public string $shipmentTypeName;
     public bool $isShipped;
     public bool $isAttachable;
+
+    /**
+     * @var int[]
+     */
     public array $mergedIds = [];
 
     /**
@@ -56,7 +61,7 @@ class GetSalesItem
     {
         $request = new GetSalePositionsRequest($this->id);
         $response = $client->sendRequest($request);
-        $data = $request->formatData($response);
+        $data = $request->formatData($response ?? []);
         return $data->items;
     }
 
@@ -70,7 +75,7 @@ class GetSalesItem
     {
         $request = new GetSaleDocumentsRequest($this->id);
         $response = $client->sendRequest($request);
-        $data = $request->formatData($response);
+        $data = $request->formatData($response ?? []);
         return $data->items;
     }
 
@@ -78,7 +83,7 @@ class GetSalesItem
     {
         $request = new GetSaleECODRequest($this->id);
         $response = $client->sendRequest($request);
-        $data = $request->formatData($response);
+        $data = $request->formatData($response ?? []);
         return $data->content;
     }
 
@@ -86,37 +91,44 @@ class GetSalesItem
     {
         $request = new GetSaleRequest($this->id);
         $response = $client->sendRequest($request);
-        $data = $request->formatData($response);
+        $data = $request->formatData($response ?? []);
         return $data;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function FromData(array $data): self
     {
         $item = new self();
-        $item->id = $data['id'];
-        $item->type = $data['type'];
-        $item->created = $data['created'];
-        $item->modified = $data['modified'];
-        $item->invoiceName = $data['invoicename'];
-        $item->orderName = $data['ordername'];
-        $item->fkCurrency = $data['fkcurrency'];
-        $item->statusName = $data['statusname'];
-        $item->symbol = $data['symbol'];
-        $item->paid = $data['paid'];
-        $item->total = $data['total'];
-        $item->totalGross = $data['totalgross'];
-        $item->isAssembling = $data['isassembling'];
-        $item->assemblyEnd = $data['assemblyend'];
-        $item->paymentDeadline = $data['paymentdeadline'];
-        $item->paymentTag = $data['paymenttag'];
-        $item->paymentTypeId = $data['paymenttypeid'];
-        $item->paymentTypeName = $data['paymenttypename'];
-        $item->shipmentTypeId = $data['shipmenttypeid'];
-        $item->shipmentTypeName = $data['shipmenttypename'];
-        $item->isShipped = $data['isshipped'];
-        $item->isAttachable = $data['isattachable'];
+        $item->id = is_numeric($data['id']) ? (int)$data['id'] : 0;
+        $item->type = is_numeric($data['type']) ? (int)$data['type'] : 0;
+        $item->created = is_string($data['created']) ? $data['created'] : null;
+        $item->modified = is_string($data['modified']) ? $data['modified'] : null;
+        $item->invoiceName = is_string($data['invoicename']) ? $data['invoicename'] : null;
+        $item->orderName = is_string($data['ordername']) ? $data['ordername'] : null;
+        $item->fkCurrency = is_numeric($data['fkcurrency']) ? (int)$data['fkcurrency'] : 0;
+        $item->statusName = is_string($data['statusname']) ? $data['statusname'] : "";
+        $item->symbol = is_string($data['symbol']) ? $data['symbol'] : "";
+        $item->paid = is_numeric($data['paid']) ? (float)$data['paid'] : 0.0;
+        $item->total = is_numeric($data['total']) ? (float)$data['total'] : 0.0;
+        $item->totalGross = is_numeric($data['totalgross']) ? (float)$data['totalgross'] : 0.0;
+        $item->isAssembling = (bool)$data['isassembling'];
+        $item->assemblyEnd = is_string($data['assemblyend']) ? $data['assemblyend'] : null;
+        $item->paymentDeadline = is_string($data['paymentdeadline']) ? $data['paymentdeadline'] : null;
+        $item->paymentTag = is_string($data['paymenttag']) ? $data['paymenttag'] : null;
+        $item->paymentTypeId = is_numeric($data['paymenttypeid']) ? (int)$data['paymenttypeid'] : 0;
+        $item->paymentTypeName = is_string($data['paymenttypename']) ? $data['paymenttypename'] : "";
+        $item->shipmentTypeId = is_numeric($data['shipmenttypeid']) ? (int)$data['shipmenttypeid'] : 0;
+        $item->shipmentTypeName = is_string($data['shipmenttypename']) ? $data['shipmenttypename'] : "";
+        $item->isShipped = (bool)$data['isshipped'];
+        $item->isAttachable = (bool)$data['isattachable'];
 
-        $item->mergedIds = array_filter(array_map('intval', explode(',', $data['mergedids'])));
+        $merged = $data['mergedids'];
+        $mergedStr = is_string($merged) ? $merged : '';
+        /** @var int[] $mergedIds */
+        $mergedIds = array_filter(array_map('intval', explode(',', $mergedStr)));
+        $item->mergedIds = $mergedIds;
 
         return $item;
     }

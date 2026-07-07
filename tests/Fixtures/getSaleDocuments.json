@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "invoice_123.pdf",
+        "langiso2": "pl",
+        "ext": "pdf",
+        "size": 1024,
+        "mime": "application/pdf",
+        "saleid": 12345,
+        "saledate": "2018-09-28 13:47:28",
+        "saletype": 0,
+        "payload": "JVBERi0xLjQKJcfs=="
+    }
+]

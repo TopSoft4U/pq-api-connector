@@ -1,0 +1,11 @@
+[
+    {
+        "id": 34,
+        "modified": "2018-01-01 00:00:00",
+        "name": "DPD",
+        "description": "DPD courier",
+        "logo": "dpd.png",
+        "trackingurl": "https://dpd.de/track",
+        "maxweight": 30.0
+    }
+]

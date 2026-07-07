@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Utils;
 
@@ -7,8 +8,12 @@ namespace TopSoft4U\Connector\Utils;
  */
 class IdList implements \JsonSerializable
 {
+    /** @var int[] */
     private array $list = [];
 
+    /**
+     * @param array<int> $list
+     */
     public function __construct(array $list)
     {
         foreach ($list as $item) {
@@ -16,29 +21,29 @@ class IdList implements \JsonSerializable
         }
     }
 
-    public function Add(int $item)
+    public function Add(int $item): void
     {
-        if (in_array($item, $this->list))
+        if (in_array($item, $this->list, true))
             return;
 
         $this->list[] = $item;
     }
 
-    public function Remove(int $item)
+    public function Remove(int $item): void
     {
-        $index = array_search($item, $this->list);
+        $index = array_search($item, $this->list, true);
         if ($index === false)
             return;
 
         unset($this->list[$index]);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return implode(",", $this->list);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return implode(",", $this->list);
     }

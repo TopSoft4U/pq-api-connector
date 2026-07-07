@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetSale;
 
@@ -28,7 +29,7 @@ class GetSaleRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): GetSaleResponse
+    public function formatData(array $data): GetSaleResponse
     {
         return GetSaleResponse::FromData($data);
     }

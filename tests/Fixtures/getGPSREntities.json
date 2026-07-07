@@ -1,0 +1,24 @@
+[
+    {
+        "id": 12,
+        "name": "Producer Sp. z o.o.",
+        "postalcode": "00-001",
+        "city": "Warszawa",
+        "street": "Marszałkowska 1",
+        "email": "info@producer.example",
+        "phone": "+48123456789",
+        "url": "https://producer.example",
+        "country": {"id": 171, "name": "Poland", "iso": "PL"}
+    },
+    {
+        "id": 13,
+        "name": "Responsible Ltd",
+        "postalcode": "00-002",
+        "city": "Kraków",
+        "street": "Floriańska 2",
+        "email": null,
+        "phone": null,
+        "url": null,
+        "country": {"id": 171, "name": "Poland", "iso": "PL"}
+    }
+]

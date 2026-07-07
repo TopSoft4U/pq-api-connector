@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateSale;
 
@@ -14,6 +15,9 @@ class CreateSaleOwnLabel implements JsonSerializable
      */
     public array $items = [];
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         $result = [

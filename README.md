@@ -39,6 +39,42 @@ For explanation of each method, please refer to the API documentation links ment
 - Option to change the output format (JSON/XML).
 - You can fetch the JSON/XML file without parsing (usable for testing).
 - Test mode for POST methods (sends data to the server, but it's not saved).
+- Optional `limit` / `page` pagination on list endpoints (see `PaginatedRequest`).
+
+## Testing
+
+A PHPUnit test suite covers every response DTO. Fixtures under `tests/Fixtures/`
+mirror the real (lowercase-keyed) API response shapes.
+
+The full matrix (PHP 7.4 → 8.5) runs in isolated, dedicated containers — no host
+PHP or shared `vendor/`:
+
+```bash
+# One version
+docker compose run --rm php83
+
+# The whole matrix
+bash scripts/test.sh
+```
+
+To run locally with your own PHP (requires ext-curl, ext-dom, ext-mbstring,
+ext-xml, ext-xmlwriter):
+
+```bash
+composer install
+vendor/bin/phpunit --no-coverage
+vendor/bin/phpstan analyse   # level 10, no baseline/ignores
+```
+
+A standalone runner that needs neither PHPUnit nor the analysis extensions is
+also available, useful for quick smoke checks:
+
+```bash
+php tests/verify_standalone.php
+```
+
+CI runs the same matrix on every push and pull request
+(see `.github/workflows/tests.yml`).
 
 ## Releasing a new version
 1. Update the version in the `composer.json` file with `bash /scripts/bump_version.sh`.

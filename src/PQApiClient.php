@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector;
 
@@ -30,12 +31,12 @@ class PQApiClient
         $this->outputFormat = OutputType::JSON();
     }
 
-    public function setLanguage(Language $lang)
+    public function setLanguage(Language $lang): void
     {
         $this->lang = $lang;
     }
 
-    public function setOutputFormat(OutputType $outputFormat)
+    public function setOutputFormat(OutputType $outputFormat): void
     {
         $this->outputFormat = $outputFormat;
     }
@@ -45,16 +46,16 @@ class PQApiClient
      * Test mode is only used in POST requests.
      * When enabled, it will not perform any changes in the system, but will return a response as if the changes were made.
      * That also means that you will not be able to fetch, for example, an order details after creating it in test mode - because it was not created in the system.
-     *
-     * @param bool $testMode
-     *
-     * @return void
      */
-    public function setTestMode(bool $testMode)
+    public function setTestMode(bool $testMode): void
     {
         $this->testMode = $testMode;
     }
 
+    /**
+     * @param array<string, mixed> $values
+     * @return array<string, mixed>
+     */
     private function prepareOutputValues(array $values): array
     {
         foreach ($values as $key => $value) {
@@ -69,24 +70,35 @@ class PQApiClient
 
                 // Check if the array is associative
                 if (array_keys($value) !== range(0, count($value) - 1)) {
+                    /** @var array<string, mixed> $value */
                     $values[$key] = $this->prepareOutputValues($value);
                     continue;
                 }
 
                 $firstValue = reset($value);
-                if (is_array($firstValue))
+                if (is_array($firstValue)) {
+                    /** @var array<string, mixed> $value */
                     $values[$key] = $this->prepareOutputValues($value);
-                else
-                    $value = new IdList($value);
+                } else {
+                    /** @var array<int> $value */
+                    $intValues = array_map('intval', $value);
+                    // Flat scalar list -> comma-joined via IdList, then stringified below.
+                    $value = new IdList($intValues);
+                    $values[$key] = $value;
+                }
             }
 
-            if (is_object($value) && method_exists($value, "__toString"))
-                $values[$key] = (string)$value;
+            if (is_object($value) && method_exists($value, "__toString")) {
+                $values[$key] = $value->__toString();
+            }
         }
 
         return $values;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function prepareQueryParams(BaseRequest $method): array
     {
         $queryParams = $method->getQueryParams();
@@ -128,12 +140,15 @@ class PQApiClient
         $bodyData = $method->getBodyData();
 
         $curl = curl_init();
+        /** @var non-empty-string $url */
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        /** @var non-empty-string $methodType */
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $methodType);
 
         if ($method->usesBody()) {
-            $bodyData = json_decode(json_encode($bodyData), true);
+            /** @var array<string, mixed> $bodyData */
+            $bodyData = json_decode((string)json_encode($bodyData), true) ?? [];
             $bodyData = $this->prepareOutputValues($bodyData);
 
             if ($files = $method->getFiles())
@@ -150,8 +165,9 @@ class PQApiClient
             curl_setopt($curl, CURLOPT_POSTFIELDS, $formData);
         }
 
+        /** @var string|false $output */
         $output = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $statusCode = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         if (!$statusCode) {
             $error = curl_error($curl);
@@ -161,7 +177,7 @@ class PQApiClient
         curl_close($curl);
 
         return [
-            "output"     => $output,
+            "output"     => is_string($output) ? $output : '',
             "statusCode" => $statusCode,
         ];
     }
@@ -173,6 +189,9 @@ class PQApiClient
      *
      * @throws \TopSoft4U\Connector\PQApiException
      * @throws \Exception
+     */
+    /**
+     * @return array<string, mixed>|null
      */
     public function sendRequest(BaseRequest $method)
     {
@@ -189,16 +208,28 @@ class PQApiClient
         if ($statusCode >= 400) {
             $lines = [];
             $levels = ["danger", "warning", "info"];
-            foreach ($data["messages"] as $level => $messages) {
-                if (!in_array($level, $levels))
+            $messages = is_array($data) && is_array($data["messages"] ?? null) ? $data["messages"] : [];
+            foreach ($messages as $level => $messageList) {
+                if (!in_array($level, $levels, true))
                     continue;
 
-                $lines = array_merge($lines, $messages);
+                if (!is_array($messageList))
+                    continue;
+
+                foreach ($messageList as $message) {
+                    if (is_string($message))
+                        $lines[] = $message;
+                }
             }
 
             throw new PQApiException($statusCode, implode("\n", $lines));
         }
 
+        if (!is_array($data)) {
+            return null;
+        }
+
+        /** @var array<string, mixed> $data */
         return $data;
     }
 }

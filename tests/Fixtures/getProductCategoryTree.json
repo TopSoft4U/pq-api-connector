@@ -1,0 +1,23 @@
+[
+    {
+        "id": 2000,
+        "modified": "2016-11-30 02:30:21",
+        "name": "Root",
+        "fkparent": 0,
+        "order": 0,
+        "countpublished": 100,
+        "visible": 1,
+        "children": [
+            {
+                "id": 2116,
+                "modified": "2016-11-30 02:30:21",
+                "name": "Leaf",
+                "fkparent": 2000,
+                "order": 1,
+                "countpublished": 39,
+                "visible": 1,
+                "children": []
+            }
+        ]
+    }
+]

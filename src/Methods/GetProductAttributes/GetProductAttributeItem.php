@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductAttributes;
 
@@ -8,20 +9,27 @@ class GetProductAttributeItem
     public ?string $name;
     public ?string $type;
     public string $value;
+    public ?string $from = null;
+    public ?string $to = null;
     public int $fkProduct;
     public int $fkCategory;
     public bool $isGrouping;
 
-    public static function FromData($data): self
+    /**
+     * @param array<string, mixed> $data
+     */
+    public static function FromData(array $data): self
     {
         $item = new self();
-        $item->id = $data["id"];
-        $item->name = $data["name"];
-        $item->type = $data["type"];
-        $item->value = $data["value"];
-        $item->fkProduct = $data["fkproduct"];
-        $item->fkCategory = $data["fkcategory"];
-        $item->isGrouping = $data["isgrouping"];
+        $item->id = is_numeric($data["id"]) ? (int)$data["id"] : null;
+        $item->name = is_string($data["name"]) ? $data["name"] : null;
+        $item->type = is_string($data["type"]) ? $data["type"] : null;
+        $item->value = is_string($data["value"]) ? $data["value"] : "";
+        $item->from = is_string($data["from"] ?? null) ? $data["from"] : null;
+        $item->to = is_string($data["to"] ?? null) ? $data["to"] : null;
+        $item->fkProduct = is_numeric($data["fkproduct"]) ? (int)$data["fkproduct"] : 0;
+        $item->fkCategory = is_numeric($data["fkcategory"]) ? (int)$data["fkcategory"] : 0;
+        $item->isGrouping = (bool)$data["isgrouping"];
 
         return $item;
     }

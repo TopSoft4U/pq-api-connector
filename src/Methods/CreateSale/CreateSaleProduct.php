@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateSale;
 
@@ -15,6 +16,9 @@ class CreateSaleProduct implements JsonSerializable
         $this->quantity = $quantity;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

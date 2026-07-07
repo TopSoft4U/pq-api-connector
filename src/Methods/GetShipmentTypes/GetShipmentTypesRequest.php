@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetShipmentTypes;
 
@@ -10,6 +11,7 @@ class GetShipmentTypesRequest extends GetRequest
 {
     public CountryIso $country;
 
+    /** @var int[]|null */
     public ?array $id = null;
     public ?Date $modified = null;
     public ?string $name = null;
@@ -46,10 +48,12 @@ class GetShipmentTypesRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetShipmentTypesResponse
+    public function formatData(array $data): GetShipmentTypesResponse
     {
         $result = new GetShipmentTypesResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetShipmentTypesItem::FromData($row);
         }
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductVariants;
 
@@ -37,10 +38,12 @@ class GetProductVariantsRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): GetProductVariantsResponse
+    public function formatData(array $data): GetProductVariantsResponse
     {
         $result = new GetProductVariantsResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetProductVariantItem::FromData($row);
         }
 

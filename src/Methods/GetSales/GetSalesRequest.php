@@ -1,17 +1,20 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetSales;
 
-use TopSoft4U\Connector\Abstracts\GetRequest;
+use TopSoft4U\Connector\Abstracts\PaginatedRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetSalesRequest extends GetRequest
+class GetSalesRequest extends PaginatedRequest
 {
+    /** @var int[]|null */
     public ?array $id = null;
     public ?string $name = null;
     public ?string $invoiceName = null;
     public ?Date $date = null;
     public ?Date $modified = null;
+    /** @var int[]|null */
     public ?array $type = null;
     public ?int $productId = null;
     public ?bool $isAttachable = null;
@@ -21,7 +24,7 @@ class GetSalesRequest extends GetRequest
         return "/getSales";
     }
 
-    public function getQueryParams(): array
+    protected function getOwnQueryParams(): array
     {
         $result = [];
         if ($this->id !== null)
@@ -51,10 +54,12 @@ class GetSalesRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetSalesResponse
+    public function formatData(array $data): GetSalesResponse
     {
         $result = new GetSalesResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetSalesItem::FromData($row);
         }
 

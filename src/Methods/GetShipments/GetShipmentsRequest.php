@@ -1,19 +1,23 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetShipments;
 
-use TopSoft4U\Connector\Abstracts\GetRequest;
+use TopSoft4U\Connector\Abstracts\PaginatedRequest;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetShipmentsRequest extends GetRequest
+class GetShipmentsRequest extends PaginatedRequest
 {
     //region Query params
+    /** @var int[]|null */
     public ?array $id = null;
     public ?Date $created = null;
     public ?Date $modified = null;
     public ?Date $date = null;
     public ?string $name = null;
+    /** @var int[]|null */
     public ?array $saleId = null;
+    /** @var int[]|null */
     public ?array $shipmentTypeId = null;
     //endregion
 
@@ -22,7 +26,7 @@ class GetShipmentsRequest extends GetRequest
         return "/getShipments";
     }
 
-    public function getQueryParams(): array
+    protected function getOwnQueryParams(): array
     {
         $result = [];
 
@@ -50,10 +54,12 @@ class GetShipmentsRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data)
+    public function formatData(array $data)
     {
         $result = new GetShipmentsResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetShipmentsItem::FromData($row);
         }
 

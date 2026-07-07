@@ -1,0 +1,12 @@
+[
+    {
+        "id": 33,
+        "modified": "2016-11-30 02:30:21",
+        "name": "Color",
+        "description": "Product color",
+        "type": "text",
+        "categoryids": [2116, 2117],
+        "varianttype": 1,
+        "unit": "szt"
+    }
+]

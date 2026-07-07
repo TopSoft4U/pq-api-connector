@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateSale;
 
@@ -17,6 +18,9 @@ class CreateSaleShipping implements JsonSerializable
     public string $email;
     public CountryIso $country;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         $result = [];

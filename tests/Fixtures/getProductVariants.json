@@ -1,0 +1,12 @@
+[
+    {
+        "groupname": "Materiał",
+        "attributeid": 34,
+        "type": "variant",
+        "unit": "szt",
+        "subitems": [
+            {"attributevalue": "Silikon", "productid": 53278, "thumbnail": "thumb1.png", "instock": 1, "fullmatch": 0},
+            {"attributevalue": "Stal nierdzewna", "productid": 53259, "thumbnail": "thumb2.png", "instock": 1, "fullmatch": 1}
+        ]
+    }
+]

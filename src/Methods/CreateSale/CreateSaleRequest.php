@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateSale;
 
@@ -81,12 +82,12 @@ class CreateSaleRequest extends PostRequest
         return $result;
     }
 
-    public function formatData($data): CreateSaleResponse
+    public function formatData(array $data): CreateSaleResponse
     {
         return CreateSaleResponse::FromData($data);
     }
 
-    public function setDifferentDelivery(CreateSaleShipping $shipping)
+    public function setDifferentDelivery(CreateSaleShipping $shipping): void
     {
         $this->shipmentDiffInvoice = true;
         $this->shipping = $shipping;

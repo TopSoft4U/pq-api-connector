@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetSaleDocuments;
 
@@ -9,6 +10,7 @@ class GetSaleDocumentsRequest extends GetRequest
 {
     private int $id;
     public ?Date $date = null;
+    /** @var int[]|null */
     public ?array $type = null;
 
     public function __construct(int $id)
@@ -36,10 +38,12 @@ class GetSaleDocumentsRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetSaleDocumentsResponse
+    public function formatData(array $data): GetSaleDocumentsResponse
     {
         $result = new GetSaleDocumentsResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetSaleDocumentsItem::FromData($row);
         }
 

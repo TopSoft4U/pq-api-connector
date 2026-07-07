@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetSaleECOD;
 
@@ -25,7 +26,7 @@ class GetSaleECODRequest extends GetRequest
         ];
     }
 
-    public function formatData($data): GetSaleECODResponse
+    public function formatData(array $data): GetSaleECODResponse
     {
         return GetSaleECODResponse::FromData($data);
     }

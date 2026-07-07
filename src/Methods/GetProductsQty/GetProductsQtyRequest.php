@@ -1,17 +1,21 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\GetProductsQty;
 
-use TopSoft4U\Connector\Abstracts\GetRequest;
+use TopSoft4U\Connector\Abstracts\PaginatedRequest;
 use TopSoft4U\Connector\Utils\Currency;
 use TopSoft4U\Connector\Utils\Date;
 
-class GetProductsQtyRequest extends GetRequest
+class GetProductsQtyRequest extends PaginatedRequest
 {
     //region Query params
+    /** @var int[]|null */
     public ?array $id = null;
     public ?string $name = null;
     public ?string $pid = null;
+    public ?string $ean = null;
+    /** @var int[]|null */
     public ?array $productCategoryId = null;
     public ?Date $modified = null;
     public ?Currency $currency = null;
@@ -22,7 +26,7 @@ class GetProductsQtyRequest extends GetRequest
         return "/getProductsQty";
     }
 
-    public function getQueryParams(): array
+    protected function getOwnQueryParams(): array
     {
         $result = [];
 
@@ -34,6 +38,9 @@ class GetProductsQtyRequest extends GetRequest
 
         if ($this->pid !== null)
             $result['pid'] = $this->pid;
+
+        if ($this->ean !== null)
+            $result['ean'] = $this->ean;
 
         if ($this->productCategoryId !== null)
             $result['productcategoryid'] = $this->productCategoryId;
@@ -47,10 +54,12 @@ class GetProductsQtyRequest extends GetRequest
         return $result;
     }
 
-    public function formatData($data): GetProductsQtyResponse
+    public function formatData(array $data): GetProductsQtyResponse
     {
         $result = new GetProductsQtyResponse();
         foreach ($data as $row) {
+            if (!is_array($row)) continue;
+            /** @var array<string, mixed> $row */
             $result->items[] = GetProductsQtyItem::FromData($row);
         }
 

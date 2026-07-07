@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace TopSoft4U\Connector\Methods\CreateSale;
 
@@ -10,7 +11,10 @@ class CreateSaleOwnLabelItem implements JsonSerializable
     public ?string $url = null;
     public ?string $data = null;
 
-    public function jsonSerialize()
+    /**
+     * @return array<string, mixed>
+     */
+    public function jsonSerialize(): array
     {
         $result = [
             "tracking_no" => $this->trackingNo,

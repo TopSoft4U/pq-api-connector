@@ -1,0 +1,17 @@
+[
+    {
+        "id": 100,
+        "created": "2018-09-28 13:47:28",
+        "modified": "2018-09-28 13:47:36",
+        "date": "2018-09-29 10:00:00",
+        "name": "DPD-12345",
+        "state": 2,
+        "weightgross": 0.6,
+        "orderdocumentnames": "FV/1,FV/2",
+        "ordernames": "Z18/1,Z18/2",
+        "orderids": "Z18/1,Z18/2",
+        "fkshipmenttype": 34,
+        "shipmenttypename": "DPD",
+        "trackingurl": "https://dpd.de/track?id=DPD-12345"
+    }
+]
